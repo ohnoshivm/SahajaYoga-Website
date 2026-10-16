@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SAHAJA YOGA · Website design v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="deck">
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="mark" viewBox="0 0 48 32">
+    <g fill="none" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round">
+      <path d="M24 3.5C28.2 10 28.2 20 24 27.5 19.8 20 19.8 10 24 3.5Z"/>
+      <path d="M24 27.5C21 19 15 13.2 7.5 12.2 8.3 20.5 15 26.6 24 27.5Z"/>
+      <path d="M24 27.5C27 19 33 13.2 40.5 12.2 39.7 20.5 33 26.6 24 27.5Z"/>
+      <path d="M24 27.5C16 26.6 7 24.4 1.5 19.5 7.2 27 15.6 29.4 24 27.5Z"/>
+      <path d="M24 27.5C32 26.6 41 24.4 46.5 19.5 40.8 27 32.4 29.4 24 27.5Z"/>
+    </g>
+  </symbol>
+  <symbol id="arrow" viewBox="0 0 22 44"><g fill="none" stroke="currentColor" stroke-width="1.4"><path d="M11 1v41"/><path d="M1.5 32.5 11 42l9.5-9.5"/></g></symbol>
+  <symbol id="play" viewBox="0 0 20 20"><path d="M6 4.5v11l9-5.5z" fill="currentColor"/></symbol>
+  <symbol id="pause" viewBox="0 0 20 20"><g fill="currentColor"><rect x="5" y="4" width="3.2" height="12" rx="1"/><rect x="11.8" y="4" width="3.2" height="12" rx="1"/></g></symbol>
+</svg>
+
+<template id="header">
+  <header class="hd">
+    <a class="hd__brand"><svg><use href="#mark"/></svg><span>SAHAJA YOGA</span></a>
+    <figure class="hd__portrait"><div class="hd__portrait-ring"><img src="private/portrait.png" alt="Shri Mataji Nirmala Devi"></div></figure>
+    <nav class="hd__nav"><a class="pill">Meditate</a><a class="pill">Chakras</a><a class="pill">My practice</a></nav>
+  </header>
+</template>
+
+<div class="deck__head">
+  <h1>SAHAJA YOGA · Website design v1</h1>
+  <p>Every main screen, designed at desktop (1440 × 900) and phone (390 × 844). The lotus is the approved hero lotus. The seven chakra forms are 3D renders built from the official Sahaja Yoga USA chakra-guide geometry. Notes under each screen cover motion and interaction, which a still frame can't show.</p>
+  <p>One idea runs through everything: <b>monumental serif type, one luminous object in front of it, and almost nothing else.</b> The ivory room is home. Each chakra turns the whole screen its own colour. While you meditate, the time takes the place of the title and the object stays as your anchor.</p>
+</div>
+
+<!-- ═══════════════ HOME · HERO ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Home · 1 · Arrival</h2><code>/</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="home-hero">
+      <div data-header></div>
+      <h1 class="display abs" style="left:84px;top:206px;font-size:346px">SAHAJA</h1>
+      <div class="display abs" style="left:92px;top:520px;font-size:166px;letter-spacing:0.005em">YOGA</div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:408px;top:300px;width:624px">
+      <p class="lead abs" style="right:96px;top:606px;width:360px;text-align:right">A space to return to yourself.</p>
+      <div class="abs" style="left:0;right:0;top:776px;display:flex;justify-content:center;gap:44px">
+        <a class="text-action">Begin Meditation</a><a class="text-action text-action--soft">Explore Chakras</a>
+      </div>
+      <svg class="arrow-down abs" style="left:709px;top:834px"><use href="#arrow"/></svg>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>Arrival is 2.4 s, once. The letters of SAHAJA rise out of a mask one by one, then YOGA follows. The lotus starts as a closed bud below its resting place and blooms open as it settles, its heart warming last. After that, nothing moves on its own.</p></div>
+    <div><h3>Interaction</h3><ul><li>Pointer gives the lotus a gentle depth tilt (±4°). The type and portrait stay still.</li><li>Hover over the lotus and the cursor becomes a ring that reads “Hold” (see the next frame).</li><li>Scrolling begins the Ascent.</li></ul></div>
+    <div><h3>Decisions</h3><p>This keeps your approved composition and adds YOGA as a second line so the full brand is visible. The lotus sits where the two lines meet. The header portrait is your photo, shown here for placement only until its source and permission are confirmed.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOME · HOLD ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Home · 2 · Hold to bloom</h2><code>/ (optional ritual)</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="home-hold">
+      <div data-header></div>
+      <h1 class="display abs" style="left:84px;top:206px;font-size:346px;letter-spacing:0.008em;opacity:.86">SAHAJA</h1>
+      <div class="display abs" style="left:92px;top:520px;font-size:166px;opacity:.86">YOGA</div>
+      <div class="heart-glow" style="left:380px;top:200px;width:680px;height:620px;opacity:.95"></div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:396px;top:286px;width:648px;filter:drop-shadow(0 30px 40px rgba(120,90,60,.16)) brightness(1.04)">
+      <div class="breeze abs" style="left:0;top:0;width:1440px;height:900px;z-index:7">
+        <i style="left:700px;top:252px"></i><i style="left:742px;top:212px;opacity:.7"></i><i style="left:672px;top:180px;opacity:.5"></i><i style="left:770px;top:150px;opacity:.4"></i><i style="left:720px;top:118px;opacity:.3"></i><i style="left:640px;top:236px;opacity:.6"></i><i style="left:808px;top:244px;opacity:.6"></i>
+      </div>
+      <svg class="ring-hold" style="left:868px;top:458px" width="92" height="92" viewBox="0 0 92 92">
+        <circle cx="46" cy="46" r="40" fill="rgba(246,240,232,.35)" stroke="rgba(62,53,49,.25)" stroke-width="1"/>
+        <circle cx="46" cy="46" r="40" fill="none" stroke="#b8925f" stroke-width="2" stroke-dasharray="251" stroke-dashoffset="96" transform="rotate(-90 46 46)" stroke-linecap="round"/>
+        <text x="46" y="51" text-anchor="middle" font-family="Hanken Grotesk" font-size="12.5" letter-spacing="1.4" fill="#3e3531">HOLD</text>
+      </svg>
+      <p class="abs" style="left:0;right:0;top:770px;text-align:center;margin:0;font:italic 500 30px/1 var(--serif);color:var(--ink2)">Breathe out. Let it open.</p>
+      <p class="abs" style="left:0;right:0;top:814px;text-align:center;margin:0;font:400 13px/1 var(--sans);color:var(--ink3)">Release at any time and it gently closes again.</p>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>Holding for 4 s opens the lotus fully. As it opens, its golden heart brightens and the letters drift a few pixels apart. A light, cool breeze of particles rises from the centre. Letting go reverses it at the same pace, so nothing is lost by stopping.</p></div>
+    <div><h3>Interaction</h3><ul><li>Works with mouse, touch (press and hold) and keyboard (hold Space on the focused lotus).</li><li>Completing the hold scrolls you gently into the Ascent.</li><li>The CTAs are never hidden, so the ritual stays optional.</li></ul></div>
+    <div><h3>Why</h3><p>This is the Noomo “reversible commitment” move, made gentle: a moment of attention before you begin. It never claims to measure anything; it's a doorway.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOME · ASCENT ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Home · 3 · The Ascent</h2><code>/ (scroll scene, 7 worlds)</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="home-ascent-1" data-world="mooladhara">
+      <div data-header></div>
+      <div class="display abs" style="left:0;right:0;top:214px;text-align:center;font-size:214px;font-weight:500;letter-spacing:-0.015em">Mooladhara</div>
+      <div class="form-glow" style="left:430px;top:200px;width:580px;height:580px"></div>
+      <img class="form" src="assets/chakra-mooladhara.png" alt="" style="left:470px;top:240px;width:500px">
+      <div class="spine" style="right:56px;top:300px">
+        <span>Sahasrara</span><span>Agnya</span><span>Vishuddhi</span><span>Anahat</span><span>Nabhi</span><span>Swadishthan</span><span class="now">Mooladhara</span>
+      </div>
+      <div class="abs" style="left:96px;top:676px">
+        <div class="serif" style="font-size:64px;font-weight:500;line-height:1">Innocence</div>
+        <p class="soft" style="margin:14px 0 0;font:400 16px/1.55 var(--sans);width:360px">The first centre, at the base of the spine. Element: earth. Felt at the base of the palms.</p>
+      </div>
+      <a class="text-action abs" style="right:96px;bottom:68px;font-size:19px">Enter Mooladhara →</a>
+    </div></div>
+  </div>
+  <div class="scr__row" style="margin-top:40px">
+    <div class="ab-wrap"><div class="ab" id="home-ascent-5" data-world="vishuddhi">
+      <div data-header></div>
+      <div class="display abs" style="left:0;right:0;top:214px;text-align:center;font-size:214px;font-weight:500;letter-spacing:-0.015em">Vishuddhi</div>
+      <div class="form-glow" style="left:420px;top:190px;width:600px;height:600px"></div>
+      <img class="form" src="assets/chakra-vishuddhi.png" alt="" style="left:450px;top:220px;width:540px">
+      <div class="spine" style="right:56px;top:300px">
+        <span>Sahasrara</span><span>Agnya</span><span class="now">Vishuddhi</span><span class="past">Anahat</span><span class="past">Nabhi</span><span class="past">Swadishthan</span><span class="past">Mooladhara</span>
+      </div>
+      <div class="abs" style="left:96px;top:676px">
+        <div class="serif" style="font-size:64px;font-weight:500;line-height:1">Communication</div>
+        <p class="soft" style="margin:14px 0 0;font:400 16px/1.55 var(--sans);width:380px">The fifth centre, at the neck. Element: ether. Felt in the index fingers.</p>
+      </div>
+      <div class="abs" style="right:96px;bottom:62px;text-align:right">
+        <p class="soft" style="margin:0 0 10px;font:400 13px/1 var(--sans);letter-spacing:.04em">Raga Jaijaivanti is available here</p>
+        <a class="text-action" style="font-size:19px">Enter Vishuddhi →</a>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__row" style="margin-top:40px">
+    <div class="ab-wrap"><div class="ab" id="home-ascent-7" data-world="sahasrara">
+      <div data-header></div>
+      <div class="display abs" style="left:0;right:0;top:214px;text-align:center;font-size:214px;font-weight:500;letter-spacing:-0.015em">Sahasrara</div>
+      <div class="heart-glow" style="left:400px;top:170px;width:640px;height:640px;opacity:.9"></div>
+      <img class="form" src="assets/chakra-sahasrara.png" alt="" style="left:430px;top:210px;width:580px">
+      <div class="spine" style="right:56px;top:300px">
+        <span class="now">Sahasrara</span><span class="past">Agnya</span><span class="past">Vishuddhi</span><span class="past">Anahat</span><span class="past">Nabhi</span><span class="past">Swadishthan</span><span class="past">Mooladhara</span>
+      </div>
+      <div class="abs" style="left:96px;top:676px">
+        <div class="serif" style="font-size:64px;font-weight:500;line-height:1">Integration</div>
+        <p class="soft" style="margin:14px 0 0;font:400 16px/1.55 var(--sans);width:400px">The seventh centre, the thousand-petalled lotus at the crown. Felt at the centre of the palm.</p>
+      </div>
+      <a class="text-action abs" style="right:96px;bottom:68px;font-size:19px">Return to the room ↓</a>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>One pinned, scroll-scrubbed scene of about seven screens. The lotus sinks and becomes Mooladhara. Then the view rises up the spine: each chakra form rises into the centre, and its colour floods the screen from below like light filling a room. Names cross-fade behind the forms. Scrolling back plays it in reverse.</p></div>
+    <div><h3>Interaction</h3><ul><li>The spine rail on the right is a real control: click any chakra to jump to it.</li><li>Arrow keys step between chakras. With reduced motion, it becomes seven calm stacked sections.</li><li>“Enter …” opens that chakra's world.</li></ul></div>
+    <div><h3>Content</h3><p>Positions, elements, fingers and qualities follow the official Sahaja Yoga USA guides. One quality word per chakra and one short line, nothing more. Depth lives inside each world.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOME · SUBTLE SYSTEM ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Home · 4 · The subtle system</h2><code>/ (preview of the atlas)</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="home-system">
+      <div data-header></div>
+      <h2 class="display abs" style="left:96px;top:196px;font-size:96px;font-weight:600;line-height:.92;width:520px">The subtle system</h2>
+      <p class="body abs" style="left:96px;top:410px;width:380px;font-size:17px">Seven chakras along three channels. The Kundalini rises through the centre channel and, at the crown, meets the all-pervading power.</p>
+      <div class="abs" style="left:96px;top:560px;display:grid;gap:22px;width:360px">
+        <div><div class="label soft">Left channel · Ida</div><p class="body" style="margin-top:8px">Desire and emotion. The past.</p></div>
+        <div><div class="label soft">Right channel · Pingala</div><p class="body" style="margin-top:8px">Action and thought. The future.</p></div>
+        <div><div class="label soft">Centre channel · Sushumna</div><p class="body" style="margin-top:8px">The path of evolution. The present.</p></div>
+      </div>
+      <svg class="abs" style="left:620px;top:150px" width="440" height="720" viewBox="0 0 440 720" fill="none">
+        <path d="M220 40V680" stroke="#b8925f" stroke-width="1.4"/>
+        <path d="M220 140C110 200 90 330 100 450C110 560 150 630 200 655" stroke="rgba(62,53,49,.34)" stroke-width="1.2"/>
+        <path d="M220 140C330 200 350 330 340 450C330 560 290 630 240 655" stroke="rgba(62,53,49,.34)" stroke-width="1.2"/>
+        <text x="72" y="430" font-family="Hanken Grotesk" font-size="11" letter-spacing="1.6" fill="#5c4e43" transform="rotate(-90 72 430)">LEFT · IDA</text>
+        <text x="372" y="380" font-family="Hanken Grotesk" font-size="11" letter-spacing="1.6" fill="#5c4e43" transform="rotate(90 372 380)">RIGHT · PINGALA</text>
+      </svg>
+      <img class="form" src="assets/chakra-sahasrara.png" alt="" style="left:784px;top:148px;width:112px">
+      <img class="form" src="assets/chakra-agnya.png" alt="" style="left:794px;top:250px;width:92px">
+      <img class="form" src="assets/chakra-vishuddhi.png" alt="" style="left:776px;top:322px;width:128px;filter:drop-shadow(0 0 22px rgba(142,197,232,.7))">
+      <img class="form" src="assets/chakra-anahat.png" alt="" style="left:794px;top:440px;width:92px">
+      <img class="form" src="assets/chakra-nabhi.png" alt="" style="left:794px;top:530px;width:92px">
+      <img class="form" src="assets/chakra-swadisthan.png" alt="" style="left:794px;top:620px;width:92px">
+      <img class="form" src="assets/chakra-mooladhara.png" alt="" style="left:794px;top:712px;width:92px">
+      <div class="abs" style="left:922px;top:372px;display:flex;align-items:center;gap:12px;z-index:9">
+        <span style="width:46px;height:1px;background:var(--ink)"></span>
+        <span class="pill pill--sm" style="background:var(--g0);border-color:var(--ink)">Vishuddhi · 16 petals</span>
+      </div>
+      <a class="text-action abs" style="right:96px;bottom:68px;font-size:19px">Open the chakra atlas →</a>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>The Ascent ends by pulling back to show the whole system at once. The seven forms settle onto the centre channel and the two side channels draw in as lines. Each form breathes very slightly (2% scale, 8 s) only while the pointer is near.</p></div>
+    <div><h3>Interaction</h3><ul><li>Hover or focus on a form to see its name and petal count.</li><li>Click to enter its world. The camera moves toward that form while the colour takes over.</li><li>Every chakra is also a keyboard-reachable link.</li></ul></div>
+    <div><h3>Accuracy</h3><p>The channel descriptions are paraphrased from the official “nadis” page. The left and right channels cross at Agnya, as the guides show. Void and the Hamsa can be added as an overlay once the content is reviewed.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOME · INVITATION ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Home · 5 · Meditation invitation</h2><code>/</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="home-invite">
+      <div data-header></div>
+      <h2 class="display abs" style="left:96px;top:198px;font-size:128px;line-height:.9">Ten taps.<br>One round.</h2>
+      <p class="body abs" style="left:96px;top:462px;width:440px;font-size:18px">Count mantras without looking at the screen. Tap anywhere: every tenth tap completes a round, and the eleventh begins the next.</p>
+      <div class="abs" style="left:96px;top:596px;display:flex;gap:30px;align-items:center">
+        <a class="pill pill--solid" style="height:54px;padding:0 30px">Begin Meditation</a>
+        <a class="text-action" style="font-size:19px">Continue my practice</a>
+      </div>
+      <div class="abs" style="left:96px;top:716px;width:520px;border-top:1px solid var(--hair);padding-top:18px">
+        <div class="label soft">Your morning routine · 24 min</div>
+        <p class="serif" style="margin:10px 0 0;font-size:24px;font-weight:500">Bandhan · Maha Mantras · Vishuddhi · Silence</p>
+      </div>
+      <div class="num abs" style="left:610px;right:0;top:248px;text-align:center;font-size:250px;font-weight:500;color:rgba(62,53,49,.13);letter-spacing:-0.02em">08:42</div>
+      <div class="heart-glow" style="left:790px;top:250px;width:440px;height:360px"></div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:790px;top:300px;width:450px">
+      <svg class="seeds" data-seeds="arc" data-lit="7" data-r="900" data-span="30" width="560" height="120" style="left:735px;top:610px;color:var(--ink3)"></svg>
+      <p class="abs" style="left:735px;width:560px;top:730px;text-align:center;margin:0;font:500 26px/1 var(--serif)">Round 2 · 7 of 10</p>
+      <p class="abs soft" style="left:735px;width:560px;top:772px;text-align:center;margin:0;font:400 14px/1 var(--sans)">Try it: tap the lotus</p>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>Each tap lights the next seed with a soft gold pulse (240 ms). The tenth closes the arc with one slow golden breath across all ten seeds, then they empty for the next round.</p></div>
+    <div><h3>Interaction</h3><p>The preview on the right is the real counter, not a picture. Visitors can tap it right here, and it says exactly what the app will do. Returning practitioners see their saved routine and “Continue my practice”.</p></div>
+    <div><h3>Rule</h3><p>Ten taps make one round, always; that's the default everywhere, and no screen, test or line of copy may say 12. The 11th tap is round 2, lap 1.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOME · RETURN ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Home · 6 · Return</h2><code>/ (closing + footer)</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="home-return">
+      <div class="heart-glow" style="left:520px;top:120px;width:400px;height:360px"></div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:560px;top:166px;width:320px">
+      <h2 class="display abs" style="left:0;right:0;top:420px;text-align:center;font-size:150px">Return to yourself.</h2>
+      <div class="abs" style="left:0;right:0;top:640px;display:flex;justify-content:center;gap:56px">
+        <a class="text-action">Meditate →</a><a class="text-action">The chakra atlas →</a><a class="text-action">Learn from the source →</a>
+      </div>
+      <div class="footer">
+        <div><b>SAHAJA YOGA</b>An independent companion, not an official Sahaja Yoga website.</div>
+        <nav><span>About</span><span>Sources</span><span>Privacy</span><span>Accessibility</span><span>Feedback</span></nav>
+        <div>Sahaja Yoga meditation is always free.</div>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>After Sahasrara, the colour drains back to ivory and the lotus returns, small and quiet. One line, three ways forward. The footer is small and plain.</p></div>
+    <div><h3>Interaction</h3><p>The three links are the whole site's map: practise, explore, learn. Nothing else competes.</p></div>
+    <div><h3>Trust</h3><p>The independent status is stated clearly. Footer pages: About, Sources (every text and recording with its origin), Privacy, Accessibility and Feedback.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ MEDITATE · CHOOSER ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Meditate · Choose how to sit</h2><code>/meditate</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="meditate">
+      <div data-header data-active="meditate"></div>
+      <h1 class="display abs" style="left:96px;top:186px;font-size:84px;line-height:.95">How would you like to sit?</h1>
+      <div class="rows" style="left:96px;right:96px;top:318px">
+        <div class="row row--hover" style="height:118px"><span class="row__t">Resume Morning Meditation</span><span class="row__m">Paused at Vishuddhi, round 2<br>Bandhan · Maha Mantras · Vishuddhi · Silence</span></div>
+        <div class="row" style="height:118px"><span class="row__t">Quick sit</span><span class="row__m">Silence with a timer<br>5 · 10 · 20 minutes</span></div>
+        <div class="row" style="height:118px"><span class="row__t">Choose a chakra</span><span class="row__m">Seven worlds<br>each with its own raga</span></div>
+        <div class="row" style="height:118px"><span class="row__t">Build a routine</span><span class="row__m">Your own sequence<br>of practices</span></div>
+      </div>
+      <div class="abs" style="left:770px;top:254px;width:250px;height:250px;border-radius:50%;background:radial-gradient(closest-side,#8ec5e8 0%,rgba(142,197,232,.55) 45%,rgba(142,197,232,0) 100%);z-index:3"></div>
+      <img class="form" src="assets/chakra-vishuddhi.png" alt="" style="left:780px;top:262px;width:230px;z-index:4">
+      <a class="text-action text-action--soft abs" style="left:96px;top:822px;font-size:17px">New to Sahaja Yoga? Begin gently →</a>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>On hover, the row slides 18 px right and its object rises in beside it: the paused chakra for Resume, the lotus for Quick sit, all seven forms fanning out for Choose a chakra. This is Buttermax's project grid, made calm.</p></div>
+    <div><h3>Interaction</h3><ul><li>The whole row is the target: one click, and the session starts.</li><li>Returning users see Resume first; first-time visitors see Quick sit first.</li><li>The new-seeker path is offered but never forced.</li></ul></div>
+    <div><h3>Speed</h3><p>From the homepage to a running session takes two clicks. No setup, no account.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SESSION · BANDHAN ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Session · A · Preparation (guided)</h2><code>/meditate/session</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="session-bandhan">
+      <div class="sbar">
+        <div><p class="sbar__t">Morning Meditation</p><p class="sbar__s">Step 2 of 5 · 03:10</p></div>
+        <div class="rail"><span class="done">Kundalini</span><span class="now">Bandhan</span><span>Maha Mantras</span><span>Vishuddhi</span><span>Silence</span></div>
+        <div class="sbar__r"><a class="pill pill--sm pill--quiet">Pause</a></div>
+      </div>
+      <h2 class="display abs" style="left:96px;top:236px;font-size:110px;font-weight:600">Bandhan</h2>
+      <p class="body abs" style="left:96px;top:352px;width:330px;font-size:18px">Rest the left hand on your lap, palm up. Raise the right hand from the left hip, over the head, down to the right hip, and back again. Seven times.</p>
+      <svg class="abs" style="left:420px;top:180px" width="600" height="520" viewBox="0 0 600 520" fill="none">
+        <path d="M60 430A240 240 0 0 1 540 430" stroke="rgba(62,53,49,.25)" stroke-width="1.4"/>
+        <path d="M60 430A240 240 0 0 1 404 228" stroke="#b8925f" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="404" cy="228" r="11" fill="#fff6e8" stroke="#b8925f" stroke-width="1.5"/>
+        <circle cx="404" cy="228" r="24" fill="none" stroke="#b8925f" stroke-opacity=".35"/>
+        <text x="60" y="466" text-anchor="middle" font-family="Hanken Grotesk" font-size="11.5" letter-spacing="1.4" fill="#5c4e43">LEFT HIP</text>
+        <text x="540" y="466" text-anchor="middle" font-family="Hanken Grotesk" font-size="11.5" letter-spacing="1.4" fill="#5c4e43">RIGHT HIP</text>
+      </svg>
+      <div class="heart-glow" style="left:590px;top:400px;width:260px;height:220px"></div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:595px;top:430px;width:250px">
+      <div class="abs" style="right:110px;top:250px;text-align:right">
+        <div class="num" style="font-size:250px;font-weight:600;line-height:.8">3</div>
+        <div class="serif" style="font-size:38px;font-weight:500;margin-top:10px">of 7</div>
+        <p class="soft" style="margin:14px 0 0;font:400 14px/1.5 var(--sans)">Tap, or press Space,<br>after each arc</p>
+      </div>
+      <div class="abs" style="left:56px;right:56px;bottom:44px;display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;gap:10px"><a class="pill pill--sm pill--quiet">Back</a><a class="pill pill--sm pill--quiet">Repeat</a></div>
+        <a class="quiet-link">Switch to silence</a>
+        <a class="pill pill--solid" style="height:50px">Next: Maha Mantras →</a>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>The point of light travels the arc at the pace of a slow arm movement (about 3 s each way) as a gentle guide, never a demand. The count advances only when you tap.</p></div>
+    <div><h3>Interaction</h3><ul><li>Big, forgiving buttons; the whole screen counts with eyes closed.</li><li>Back, Repeat, Next and Switch to silence are always one tap away.</li><li>The phase rail shows the whole routine; any step can be skipped.</li></ul></div>
+    <div><h3>Source</h3><p>Bandhan steps paraphrased from the Sahaja Yoga USA guides. Kept separate from mantra rounds: Bandhan counts to 7, mantras count in tens.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SESSION · ACTIVE ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Session · B · Active meditation (immersive)</h2><code>/meditate/session</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="session-active">
+      <div class="sbar">
+        <div><p class="sbar__t">Mantra</p><p class="sbar__s">Quick sit</p></div>
+        <div class="sbar__r"><p class="sbar__t">Round 2</p><p class="sbar__s">7 of 10</p></div>
+      </div>
+      <div class="num abs" style="left:0;right:0;top:150px;text-align:center;font-size:380px;font-weight:500;letter-spacing:-0.03em;line-height:1">12:48</div>
+      <div class="heart-glow" style="left:460px;top:310px;width:520px;height:440px"></div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:425px;top:330px;width:590px">
+      <svg class="seeds" data-seeds="arc" data-lit="7" data-r="1300" data-span="30" width="720" height="140" style="left:360px;top:704px;color:var(--ink3)"></svg>
+      <p class="abs soft" style="left:0;right:0;bottom:36px;text-align:center;margin:0;font:400 14px/1 var(--sans)">Tap anywhere to count · Space</p>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Composition</h3><p>The same structure as the hero: the time stands where SAHAJA stood, and the lotus floats in front of it. The ten seeds are a mala arc beneath, part of the geometry rather than a widget.</p></div>
+    <div><h3>Interaction</h3><ul><li>The entire screen is the counter: tap, click, Space or Enter.</li><li>Backspace undoes; P pauses. Controls appear on first move and hide after 3 s.</li><li>Optional soft haptic and bell, both off by default.</li></ul></div>
+    <div><h3>Reliability</h3><p>Time is stored as timestamps, so it stays accurate across tab sleep and reloads. Paused time is never counted. Taps at chanting speed are never dropped.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SESSION · ROUND COMPLETE ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Session · C · Round complete</h2><code>the 10th tap</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="session-round">
+      <div class="sbar">
+        <div><p class="sbar__t">Mantra</p><p class="sbar__s">Quick sit</p></div>
+        <div class="sbar__r"><p class="sbar__t">2 rounds</p><p class="sbar__s">next tap begins round 3</p></div>
+      </div>
+      <div class="num abs" style="left:0;right:0;top:150px;text-align:center;font-size:380px;font-weight:500;letter-spacing:-0.03em;line-height:1">13:57</div>
+      <div class="heart-glow" style="left:380px;top:230px;width:680px;height:620px;opacity:1"></div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:425px;top:330px;width:590px;filter:brightness(1.05)">
+      <svg class="seeds" data-seeds="arc" data-lit="10" data-halo="off" data-r="1300" data-span="30" width="720" height="140" style="left:360px;top:704px;color:var(--ink3);filter:drop-shadow(0 0 6px rgba(216,176,122,.9))"></svg>
+      <p class="abs" style="left:0;right:0;bottom:34px;text-align:center;margin:0;font:italic 500 30px/1 var(--serif);color:var(--ink2)">Round 2 complete</p>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>On the tenth tap, all ten seeds glow together for one slow breath (1.6 s) and the lotus warms a little. Then the seeds empty from left to right, ready. There's no flash and no confetti.</p></div>
+    <div><h3>Clarity</h3><p>At exactly 10, 20 or 30 taps, the screen says the round is complete instead of showing an ambiguous “lap 0”. The next tap starts lap 1 of the new round.</p></div>
+    <div><h3>Sound</h3><p>If the bell is on, one soft bell sounds per round, never per tap.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SESSION · SILENT / DIM ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Session · D · Deep stillness (silent, dim)</h2><code>/meditate/session · silent</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab ab--dim" id="session-silent">
+      <div class="sbar" style="opacity:.32">
+        <div><p class="sbar__t">Silence</p></div>
+      </div>
+      <div class="num abs" style="left:0;right:0;top:150px;text-align:center;font-size:380px;font-weight:500;letter-spacing:-0.03em;line-height:1;color:rgba(239,226,210,.06)">18:06</div>
+      <div class="heart-glow" style="left:470px;top:300px;width:500px;height:440px;opacity:.55"></div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:455px;top:340px;width:530px;filter:brightness(.62) saturate(.92) drop-shadow(0 0 60px rgba(255,214,160,.18))">
+      <p class="abs" style="left:0;right:0;bottom:36px;text-align:center;margin:0;font:400 13px/1 var(--sans);color:rgba(239,226,210,.32)">Tap to show controls</p>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Composition</h3><p>Still deliberate, not a black screen with a stopwatch. A dim warm room, the lotus glowing softly, and the time a whisper you can just make out. Dim mode suits evening and closed eyes; silent mode also works in the ivory room.</p></div>
+    <div><h3>Interaction</h3><p>Nothing moves. Taps still count (or not, in pure silence). One tap reveals the controls for 3 s. A countdown, if set, ends with a soft glow, never an alarm.</p></div>
+    <div><h3>Modes</h3><p>Guided, immersive and silent are one space with less and less on screen. You can switch at any time without losing the count.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SESSION · COMPLETE ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Session · E · Complete</h2><code>/meditate/complete</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="session-complete">
+      <div data-header data-active="meditate"></div>
+      <div class="abs" style="left:96px;top:176px;display:flex;align-items:baseline;gap:22px">
+        <span class="num" style="font-size:300px;font-weight:600;line-height:.8;letter-spacing:-0.03em">24</span>
+        <span class="serif" style="font-size:72px;font-weight:500">minutes</span>
+      </div>
+      <p class="serif abs" style="left:96px;top:450px;width:640px;margin:0;font-size:30px;line-height:1.3;font-weight:500">Morning Meditation. Bandhan, Maha Mantras, Vishuddhi, then silence.</p>
+      <p class="abs soft" style="left:96px;top:548px;margin:0;font:400 15px/1.6 var(--sans)">3 rounds and 1 lap · 31 taps · average lap 9.4 s · 07:12 to 07:36</p>
+      <div class="abs" style="left:96px;top:620px;display:flex;gap:26px;align-items:center">
+        <svg class="seeds" data-seeds="ring" data-lit="10" data-halo="off" data-r="34" data-size="5" width="86" height="86" style="position:static;color:var(--ink3)"></svg>
+        <svg class="seeds" data-seeds="ring" data-lit="10" data-halo="off" data-r="34" data-size="5" width="86" height="86" style="position:static;color:var(--ink3)"></svg>
+        <svg class="seeds" data-seeds="ring" data-lit="10" data-halo="off" data-r="34" data-size="5" width="86" height="86" style="position:static;color:var(--ink3)"></svg>
+        <svg class="seeds" data-seeds="ring" data-lit="1" data-halo="off" data-r="34" data-size="5" width="86" height="86" style="position:static;color:var(--ink3)"></svg>
+      </div>
+      <div class="abs" style="left:880px;top:204px;width:464px">
+        <div class="label soft" style="margin-bottom:14px">A note for yourself</div>
+        <div class="field" style="height:250px">What did you notice? (optional)</div>
+        <div style="display:flex;gap:12px;margin-top:26px;align-items:center">
+          <a class="pill pill--solid" style="height:52px;padding:0 30px">Save</a><a class="pill" style="height:52px">Repeat</a><a class="text-action" style="font-size:18px;margin-left:14px">Return home</a>
+        </div>
+        <p class="soft" style="margin:22px 0 0;font:400 13px/1.5 var(--sans)">Saved only on this device. You can export or delete everything in Settings.</p>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Composition</h3><p>One big honest number: the time you gave. The rounds are drawn as filled malas, three complete and one with a single seed. No score, no streak, no judgement.</p></div>
+    <div><h3>Interaction</h3><p>Saves exactly once, even with a double click or a reload. Repeat starts the same routine; Return goes home. The note is optional and private.</p></div>
+    <div><h3>Data</h3><p>Stored: date, start and end time, active duration, routine, chakras, taps, rounds, lap intervals and your note. Nothing is ever framed as spiritual progress.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAKRAS · ATLAS ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Chakras · Atlas</h2><code>/chakras</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="atlas">
+      <div data-header data-active="chakras"></div>
+      <div class="abs" style="left:96px;top:160px;width:430px">
+        <div class="rows" style="position:static">
+          <div class="row" style="height:86px"><span class="serif" style="font-size:38px;font-weight:500;opacity:.55">Sahasrara</span><span class="row__m">1000 petals</span></div>
+          <div class="row" style="height:86px"><span class="serif" style="font-size:38px;font-weight:500;opacity:.55">Agnya</span><span class="row__m">2 petals</span></div>
+          <div class="row row--hover" style="height:86px"><span class="serif" style="font-size:38px;font-weight:500;transform:translateX(18px)">Vishuddhi</span><span class="row__m" style="color:var(--ink)">16 petals</span></div>
+          <div class="row" style="height:86px"><span class="serif" style="font-size:38px;font-weight:500;opacity:.55">Anahat</span><span class="row__m">12 petals</span></div>
+          <div class="row" style="height:86px"><span class="serif" style="font-size:38px;font-weight:500;opacity:.55">Nabhi</span><span class="row__m">10 petals</span></div>
+          <div class="row" style="height:86px"><span class="serif" style="font-size:38px;font-weight:500;opacity:.55">Swadishthan</span><span class="row__m">6 petals</span></div>
+          <div class="row" style="height:86px"><span class="serif" style="font-size:38px;font-weight:500;opacity:.55">Mooladhara</span><span class="row__m">4 petals</span></div>
+        </div>
+      </div>
+      <div class="abs" style="left:610px;top:140px;width:700px;height:700px;border-radius:50%;background:radial-gradient(closest-side,rgba(226,240,249,.95),rgba(214,233,246,.5) 55%,rgba(214,233,246,0))"></div>
+      <img class="form" src="assets/chakra-vishuddhi.png" alt="" style="left:660px;top:170px;width:600px">
+      <div class="abs" style="left:640px;right:96px;top:770px;display:flex;justify-content:space-between;align-items:center">
+        <p class="soft" style="margin:0;font:400 15px/1.5 var(--sans)">Fifth centre · Ether · Light blue · Index fingers</p>
+        <a class="pill pill--solid">Enter Vishuddhi</a>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>Moving down the list swaps the form on the right. The old one sinks and the new one rises, and the colour field behind it cross-fades. It works like Buttermax's project list, with the chakra as the project.</p></div>
+    <div><h3>Interaction</h3><ul><li>The list is the accessible version; the form is the visual.</li><li>Arrow keys move through the list, Enter opens the world.</li><li>Without WebGL, still renders of the same forms are used.</li></ul></div>
+    <div><h3>Order</h3><p>The list runs from Sahasrara at the top to Mooladhara at the bottom, the way they sit in the body.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ CHAKRAS · VISHUDDHI ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Chakra world · Vishuddhi · Arrival</h2><code>/chakras/vishuddhi</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="vishuddhi" data-world="vishuddhi">
+      <div data-header data-active="chakras"></div>
+      <div class="display abs" style="left:0;right:0;top:186px;text-align:center;font-size:262px;font-weight:500;letter-spacing:-0.02em">Vishuddhi</div>
+      <div class="form-glow" style="left:400px;top:170px;width:640px;height:640px"></div>
+      <img class="form" src="assets/chakra-vishuddhi.png" alt="" style="left:430px;top:200px;width:580px">
+      <a class="quiet-link abs" style="left:56px;top:470px">← Anahat</a>
+      <a class="quiet-link abs" style="right:56px;top:470px">Agnya →</a>
+      <div class="abs" style="left:96px;top:680px;width:400px">
+        <p class="serif" style="margin:0;font-size:30px;line-height:1.25;font-weight:500">The centre of communication, diplomacy and collectivity.</p>
+        <p class="soft" style="margin:14px 0 0;font:400 14px/1.5 var(--sans)">Ether · Light blue · Felt in the index fingers</p>
+      </div>
+      <div class="abs" style="left:0;right:0;top:796px;display:flex;justify-content:center;gap:28px;align-items:center">
+        <a class="pill pill--solid" style="height:52px;padding:0 30px">Meditate here</a><a class="text-action" style="font-size:19px">Understand Vishuddhi</a>
+      </div>
+      <div class="raga" style="right:96px;top:680px;text-align:right;width:320px">
+        <p class="raga__label">Raga</p>
+        <p class="raga__name">Jaijaivanti</p>
+        <p class="raga__by">Koushik Aithal · “Music and Meditation”</p>
+        <div class="raga__row" style="justify-content:flex-end"><a class="quiet-link">Continue silently</a><a class="pill pill--sm pill--quiet">Enable chakra music</a></div>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>Arriving from the atlas, the blue rises from the bottom of the screen while the form moves in from where you clicked. Then everything holds still. The form turns a few degrees toward the pointer, never spins, and the triangle always points down.</p></div>
+    <div><h3>Interaction</h3><ul><li>Meditate here keeps you in this world: the session appears around the form (next frame).</li><li>Music asks once (“Enable chakra music” or “Continue silently”) and remembers your answer. No autoplay.</li><li>← Anahat and Agnya → move between worlds without losing your session.</li></ul></div>
+    <div><h3>Content and rights</h3><p>Form: 16 petals, a downward triangle and a moon disc, from the official guide. The raga plays through Bandcamp's official embed, credited, until hosting permission is given.</p></div>
+  </div>
+</section>
+
+<section class="scr">
+  <div class="scr__title"><h2>Chakra world · Vishuddhi · Meditating</h2><code>/chakras/vishuddhi · session</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="vishuddhi-meditate" data-world="vishuddhi">
+      <div class="sbar">
+        <div><p class="sbar__t">Vishuddhi · Mantra</p><p class="sbar__s">Step 4 of 5 · Morning Meditation</p></div>
+        <div class="sbar__r"><p class="sbar__t">Round 1</p><p class="sbar__s">4 of 10</p></div>
+      </div>
+      <div class="num abs" style="left:0;right:0;top:150px;text-align:center;font-size:380px;font-weight:500;letter-spacing:-0.03em;line-height:1;color:color-mix(in srgb,var(--wink) 92%,transparent)">06:12</div>
+      <div class="form-glow" style="left:430px;top:300px;width:580px;height:580px"></div>
+      <img class="form" src="assets/chakra-vishuddhi.png" alt="" style="left:470px;top:330px;width:500px">
+      <svg class="seeds" data-seeds="arc" data-lit="4" data-r="1300" data-span="30" width="720" height="140" style="left:360px;top:744px;color:var(--wsoft)"></svg>
+      <div class="abs" style="left:56px;bottom:44px;display:flex;gap:14px;align-items:center">
+        <svg width="18" height="18" style="color:var(--wink)"><use href="#pause"/></svg>
+        <span style="font:500 15px/1 var(--serif);font-size:19px">Jaijaivanti</span>
+        <span style="width:110px;height:1px;background:color-mix(in srgb,var(--wink) 30%,transparent);position:relative"><i style="position:absolute;left:0;top:-1px;height:3px;width:38px;background:var(--wink);border-radius:2px"></i></span>
+      </div>
+      <p class="abs" style="right:56px;bottom:44px;margin:0;font:400 14px/1 var(--sans);color:var(--wsoft)">Tap anywhere to count</p>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Transition</h3><p>Pressing Meditate here doesn't load a new page. The name dissolves, the timer rises into its place behind the form, the seeds draw in beneath, and the header withdraws. The form never jumps.</p></div>
+    <div><h3>Interaction</h3><p>It works exactly like the ivory session: the screen is the counter. The mini player stays tiny, with pause and progress only. Switching chakra mid-session asks before changing what the mantra log records.</p></div>
+    <div><h3>Colour</h3><p>All text is the world's own ink on its own deep field, never grey on colour. Every pair passes AA, most AAA.</p></div>
+  </div>
+</section>
+
+<section class="scr">
+  <div class="scr__title"><h2>Chakra world · Vishuddhi · Understand</h2><code>/chakras/vishuddhi · drawer</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="vishuddhi-understand" data-world="vishuddhi">
+      <div data-header data-active="chakras"></div>
+      <div class="display abs" style="left:-40px;width:920px;top:186px;text-align:center;font-size:200px;font-weight:500;letter-spacing:-0.02em;opacity:.5">Vishuddhi</div>
+      <div class="form-glow" style="left:150px;top:220px;width:560px;height:560px"></div>
+      <img class="form" src="assets/chakra-vishuddhi.png" alt="" style="left:180px;top:250px;width:500px;opacity:.9">
+      <aside class="drawer">
+        <a class="pill pill--sm pill--quiet" style="position:absolute;right:56px;top:46px">Close</a>
+        <p class="raga__label" style="margin-top:6px">Chakra 5</p>
+        <h3 class="serif" style="margin:6px 0 0;font-size:72px;font-weight:600;line-height:1">Vishuddhi</h3>
+        <h4>Qualities</h4>
+        <p class="serif" style="font-size:22px;line-height:1.45">Positive relationships · Effective communication · Politeness · Diplomacy · Sense of community · Witness state</p>
+        <h4>Simple practices from the guides</h4>
+        <ol><li>Hold the right hand a few inches in front of the throat and turn it gently clockwise.</li><li>Speak from the heart; praise rather than criticise.</li></ol>
+        <h4>Where it is felt</h4>
+        <p>Index fingers. Element: ether. Colour: light blue.</p>
+        <h4>Sources</h4>
+        <p><a>Sahaja Yoga USA, chakra guides ↗</a><br><a>Shri Mataji Foundation, chakras &amp; qualities ↗</a></p>
+        <p style="margin-top:22px;font-size:12.5px;color:var(--wsoft)">Paraphrased from published Sahaja Yoga guides, awaiting practitioner review. Describes practice; it does not diagnose or treat any condition.</p>
+      </aside>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Motion</h3><p>The drawer slides in from the right (420 ms, ease out). The world steps back: the form drifts left and the name dims. Opening it never pauses a session or the music.</p></div>
+    <div><h3>Interaction</h3><p>Focus moves into the drawer; Esc or Close returns it. Links open the official sources in a new tab.</p></div>
+    <div><h3>Editorial</h3><p>Büro discipline: one typeface doing all the hierarchy, generous measure, and qualities set as a sentence of words rather than a bulleted list.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ SEVEN WORLDS BOARD ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>The seven worlds</h2><code>colour + form system</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="worlds" style="display:grid;grid-template-columns:repeat(7,1fr);background:#111">
+      <div data-world="mooladhara" style="position:relative;background:radial-gradient(90% 60% at 50% 45%,var(--env-hi),var(--env) 60%,var(--env-lo));color:var(--wink);display:grid;justify-items:center;align-content:center;gap:18px;text-align:center"><img src="assets/chakra-mooladhara.png" alt="" style="width:190px"><div class="serif" style="font-size:30px;font-weight:500">Mooladhara</div><div style="font:400 12px/1.5 var(--sans);color:var(--wsoft)">Coral red · Earth<br>Raga Shyam Kalyan</div></div>
+      <div data-world="swadisthan" style="position:relative;background:radial-gradient(90% 60% at 50% 45%,var(--env-hi),var(--env) 60%,var(--env-lo));color:var(--wink);display:grid;justify-items:center;align-content:center;gap:18px;text-align:center"><img src="assets/chakra-swadisthan.png" alt="" style="width:190px"><div class="serif" style="font-size:30px;font-weight:500">Swadishthan</div><div style="font:400 12px/1.5 var(--sans);color:var(--wsoft)">Yellow · Fire<br>Raga Yaman</div></div>
+      <div data-world="nabhi" style="position:relative;background:radial-gradient(90% 60% at 50% 45%,var(--env-hi),var(--env) 60%,var(--env-lo));color:var(--wink);display:grid;justify-items:center;align-content:center;gap:18px;text-align:center"><img src="assets/chakra-nabhi.png" alt="" style="width:190px"><div class="serif" style="font-size:30px;font-weight:500">Nabhi</div><div style="font:400 12px/1.5 var(--sans);color:var(--wsoft)">Green · Water<br>Raga Abhogi</div></div>
+      <div data-world="anahat" style="position:relative;background:radial-gradient(90% 60% at 50% 45%,var(--env-hi),var(--env) 60%,var(--env-lo));color:var(--wink);display:grid;justify-items:center;align-content:center;gap:18px;text-align:center"><img src="assets/chakra-anahat.png" alt="" style="width:190px"><div class="serif" style="font-size:30px;font-weight:500">Anahat</div><div style="font:400 12px/1.5 var(--sans);color:var(--wsoft)">Purple-blue · Air<br>Raga Durga</div></div>
+      <div data-world="vishuddhi" style="position:relative;background:radial-gradient(90% 60% at 50% 45%,var(--env-hi),var(--env) 60%,var(--env-lo));color:var(--wink);display:grid;justify-items:center;align-content:center;gap:18px;text-align:center"><img src="assets/chakra-vishuddhi.png" alt="" style="width:190px"><div class="serif" style="font-size:30px;font-weight:500">Vishuddhi</div><div style="font:400 12px/1.5 var(--sans);color:var(--wsoft)">Light blue · Ether<br>Raga Jaijaivanti</div></div>
+      <div data-world="agnya" style="position:relative;background:radial-gradient(90% 60% at 50% 45%,var(--env-hi),var(--env) 60%,var(--env-lo));color:var(--wink);display:grid;justify-items:center;align-content:center;gap:18px;text-align:center"><img src="assets/chakra-agnya.png" alt="" style="width:190px"><div class="serif" style="font-size:30px;font-weight:500">Agnya</div><div style="font:400 12px/1.5 var(--sans);color:var(--wsoft)">Silver · Light<br>Raga Bageshri</div></div>
+      <div data-world="sahasrara" style="position:relative;background:radial-gradient(90% 60% at 50% 45%,var(--env-hi),var(--env) 60%,var(--env-lo));color:var(--wink);display:grid;justify-items:center;align-content:center;gap:18px;text-align:center"><img src="assets/chakra-sahasrara.png" alt="" style="width:190px"><div class="serif" style="font-size:30px;font-weight:500">Sahasrara</div><div style="font:400 12px/1.5 var(--sans);color:var(--wsoft)">All colours · Integration<br>Raga Bhairavi</div></div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>System</h3><p>One family: pearl petals tinted with the chakra's official colour, a gold relief yantra and a glowing centre. Each world gets a deep, low-saturation field for comfort, with the chakra's hue reserved for the form and its light.</p></div>
+    <div><h3>Accuracy</h3><p>Colours come from the official Sahaja Yoga USA guides. Petal counts are 4, 6, 10, 12, 16, 2 and 1000. The ragas are candidate pairings from the Sahaja Artists album, to be reviewed before launch.</p></div>
+    <div><h3>Build</h3><p>Each form is real 3D in the build. These frames are the target renders. Vishuddhi gets finished first; the others follow the same system.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRACTICE ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>My practice</h2><code>/practice</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="practice">
+      <div data-header data-active="my practice"></div>
+      <p class="abs soft" style="left:96px;top:168px;margin:0;font:400 14px/1 var(--sans)">Friday, 16 October</p>
+      <a class="display abs" style="left:96px;top:204px;font-size:66px;font-weight:600;line-height:1;color:var(--ink);text-decoration:none">Begin Morning Meditation →</a>
+      <p class="abs soft" style="left:96px;top:300px;margin:0;font:400 15px/1 var(--sans)">24 min · Bandhan, Maha Mantras, Vishuddhi, Silence · your default</p>
+      <p class="serif abs" style="left:96px;top:372px;width:700px;margin:0;font-size:34px;line-height:1.3;font-weight:500">This week you sat 5 times, for 2 hours 14 minutes, and counted 23 rounds.</p>
+      <div class="list" style="left:96px;top:518px;width:740px">
+        <p class="list__h">Recent</p>
+        <div class="lrow" style="grid-template-columns:120px 1fr 90px 90px 90px"><span>Today</span><b>Morning Meditation</b><span>24 min</span><span class="dots"><i style="background:#8ec5e8"></i></span><span style="text-align:right">3 rounds</span></div>
+        <div class="lrow" style="grid-template-columns:120px 1fr 90px 90px 90px"><span>Thu 15</span><b>Evening Meditation</b><span>18 min</span><span class="dots"><i style="background:#7e72d1"></i><i style="background:#c9ced6"></i></span><span style="text-align:right">2 rounds</span></div>
+        <div class="lrow" style="grid-template-columns:120px 1fr 90px 90px 90px"><span>Thu 15</span><b>Quick sit</b><span>10 min</span><span class="dots"></span><span style="text-align:right">Silence</span></div>
+        <div class="lrow" style="grid-template-columns:120px 1fr 90px 90px 90px"><span>Wed 14</span><b>Vishuddhi focus</b><span>15 min</span><span class="dots"><i style="background:#8ec5e8"></i></span><span style="text-align:right">5 rounds</span></div>
+      </div>
+      <div class="abs" style="left:932px;top:186px;width:412px">
+        <p class="list__h">October</p>
+        <div class="cal"><span class="cal__dow">M</span><span class="cal__dow">T</span><span class="cal__dow">W</span><span class="cal__dow">T</span><span class="cal__dow">F</span><span class="cal__dow">S</span><span class="cal__dow">S</span></div>
+        <div class="cal" data-cal="20,0,15,24,30,10,0,22,18,0,25,40,12,20,28,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" data-today="16" data-offset="3" style="margin-top:-8px"></div>
+      </div>
+      <div class="list" style="left:932px;top:640px;width:412px">
+        <p class="list__h">Routines</p>
+        <div class="lrow" style="grid-template-columns:1fr auto"><b>Morning Meditation</b><span class="soft" style="font-size:13px">default</span></div>
+        <div class="lrow" style="grid-template-columns:1fr auto"><b>Evening Meditation</b><span></span></div>
+        <div class="lrow" style="grid-template-columns:1fr auto"><b>Vishuddhi focus</b><span></span></div>
+        <div class="lrow" style="grid-template-columns:1fr auto"><span style="color:var(--ink)">+ New routine</span><span></span></div>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Composition</h3><p>The next best action comes first, as a headline you can click. The week is summarised in one sentence instead of a dashboard of numbers. The calendar draws each day as a seed sized by minutes sat.</p></div>
+    <div><h3>Interaction</h3><p>Click a day to see its sessions, or a session for its full detail and note. Routines open in the builder. Everything stays on the device, with export and delete in Settings.</p></div>
+    <div><h3>Tone</h3><p>No streak banners, no guilt, no levels. Empty days are drawn as quiet outlines, not red marks.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ ROUTINE BUILDER ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>My practice · Routine builder</h2><code>/practice/routines</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="routine">
+      <div data-header data-active="my practice"></div>
+      <h1 class="display abs" style="left:96px;top:176px;font-size:84px;font-weight:600;line-height:1">Morning Meditation</h1>
+      <p class="abs soft" style="left:96px;top:292px;margin:0;font:400 15px/1 var(--sans)">Your default routine · about 24 minutes</p>
+      <div class="abs" style="left:96px;top:322px;width:800px">
+        <div class="phase"><span class="grip"></span><span class="phase__n">1</span><div><p class="phase__t">Kundalini raising</p><p class="phase__d">Once · untimed</p></div><span class="chip">1 min</span></div>
+        <div class="phase"><span class="grip"></span><span class="phase__n">2</span><div><p class="phase__t">Bandhan</p><p class="phase__d">Seven arcs</p></div><span class="chip">2 min</span></div>
+        <div class="phase"><span class="grip"></span><span class="phase__n">3</span><div><p class="phase__t">Maha Mantras</p><p class="phase__d">Full sequence · text awaiting review</p></div><span class="chip">6 min</span></div>
+        <div class="phase"><span class="grip"></span><span class="phase__n">4</span><div><p class="phase__t">Vishuddhi</p><p class="phase__d">3 rounds of 10 · Raga Jaijaivanti</p></div><span class="chip">5 min</span></div>
+        <div class="phase"><span class="grip"></span><span class="phase__n">5</span><div><p class="phase__t">Silence</p><p class="phase__d">Countdown, ends with a soft glow</p></div><span class="chip">10 min</span></div>
+        <p style="margin:22px 0 0;font:500 16px/1 var(--sans);color:var(--ink)">+ Add a practice</p>
+      </div>
+      <div class="abs" style="left:984px;top:322px;width:360px">
+        <p class="list__h">Start from a template</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px"><span class="chip chip--on">Morning</span><span class="chip">Evening</span><span class="chip">Chakra focus</span><span class="chip">Silent</span><span class="chip">Quick</span></div>
+        <div style="display:grid;gap:12px;margin-top:56px;justify-items:start">
+          <a class="pill pill--solid" style="height:52px;padding:0 30px">Save routine</a>
+          <a class="pill" style="height:52px">Set as default</a>
+          <a class="text-action" style="font-size:17px;margin-top:8px">Duplicate</a>
+        </div>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Interaction</h3><ul><li>Drag by the grip (or use the up/down keys) to reorder.</li><li>Click a phase to set its chakra, count, duration or music.</li><li>Removing a phase can be undone; reset asks first.</li></ul></div>
+    <div><h3>Both orders supported</h3><p>Your preferred order (Bandhan → Maha Mantras → chakra → rounds → silence) and the source-informed one (Kundalini → Bandhan → chakra → stillness → closing mantras) are both templates. Neither is labelled “the only way”.</p></div>
+    <div><h3>Honesty</h3><p>Anything whose text isn't reviewed yet, like the Maha Mantras, says so right in the list.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ LIBRARY ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Library</h2><code>/library</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="library">
+      <div data-header></div>
+      <h1 class="display abs" style="left:96px;top:170px;font-size:112px;line-height:1">Learn from the source.</h1>
+      <div class="search abs" style="left:96px;top:318px;width:380px"><span>Search the library</span><svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="5.6"/><path d="m11.2 11.2 4.6 4.6"/></svg></div>
+      <div class="abs" style="left:560px;top:322px;display:flex;gap:10px;align-items:center">
+        <span class="chip chip--on">All</span><span class="chip">Teachings</span><span class="chip">Practices</span><span class="chip">Mantras</span><span class="chip">Music</span>
+        <span class="dots" style="margin-left:22px;gap:8px"><i style="background:#e8705a"></i><i style="background:#f2c94c"></i><i style="background:#4fb377"></i><i style="background:#7e72d1"></i><i style="background:#8ec5e8"></i><i style="background:#c9ced6"></i><i style="background:#e4ddd2;border:1px solid var(--hair)"></i></span>
+      </div>
+      <div class="rows" style="left:96px;right:96px;top:396px">
+        <div class="row" style="height:80px"><span class="row__t" style="font-size:50px">Teachings</span><span class="row__m">12 talks and lessons</span></div>
+        <div class="row row--hover" style="height:80px"><span class="row__t" style="font-size:50px">Practices</span><span class="row__m" style="color:var(--ink)">Footsoak, Bandhan, Kundalini raising, candle, ice pack · 9 guides</span></div>
+        <div class="row" style="height:80px"><span class="row__t" style="font-size:50px">Mantras</span><span class="row__m">7 · awaiting review</span></div>
+        <div class="row" style="height:80px"><span class="row__t" style="font-size:50px">Music</span><span class="row__m">7 ragas, one for each chakra</span></div>
+        <div class="row" style="height:80px"><span class="row__t" style="font-size:50px">The subtle system</span><span class="row__m">7 chakras · 3 channels</span></div>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Editorial</h3><p>Büro-style: the sections are the page, set as huge lines. Hovering one reveals what's inside. No cards, no thumbnails grid.</p></div>
+    <div><h3>Interaction</h3><p>Search covers everything. Filter by type or by chakra (the seven dots). Every item shows its source, publisher, rights status and review date.</p></div>
+    <div><h3>Integrity</h3><p>Nothing here is generated. Talks are official embeds or links, and mantra wording comes only from reviewed sources.</p></div>
+  </div>
+</section>
+
+<section class="scr">
+  <div class="scr__title"><h2>Library · A practice guide</h2><code>/library/practices/footsoak</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab ab--tall" id="library-footsoak">
+      <div data-header></div>
+      <div class="abs" style="left:96px;top:196px;width:250px;display:grid;gap:22px">
+        <div><div class="label soft">Practice</div><p class="serif" style="margin:8px 0 0;font-size:22px;font-weight:500">Evening · 10 to 15 min</p></div>
+        <div><div class="label soft">Source</div><p class="body" style="margin-top:8px;font-size:15px">Sahaja Yoga USA handouts</p></div>
+        <div><div class="label soft">Review</div><p class="body" style="margin-top:8px;font-size:15px">Awaiting practitioner review</p></div>
+        <a class="pill pill--solid" style="height:50px;justify-self:start;margin-top:10px">Start a footsoak timer</a>
+      </div>
+      <div class="abs" style="left:440px;top:172px;width:660px">
+        <h1 class="display" style="font-size:118px;line-height:1">The footsoak</h1>
+        <p class="serif" style="margin:34px 0 0;font-size:30px;line-height:1.35;font-style:italic;font-weight:500;color:var(--ink2)">A simple evening practice that uses water, salt and a little warmth to help settle the attention.</p>
+        <ol style="list-style:none;padding:0;margin:46px 0 0;display:grid;gap:26px">
+          <li style="display:grid;grid-template-columns:56px 1fr"><span class="num" style="font-size:38px;font-weight:500;line-height:1">1</span><p class="body" style="font-size:18px">Fill a basin with comfortably warm water and stir in a tablespoon of salt.</p></li>
+          <li style="display:grid;grid-template-columns:56px 1fr"><span class="num" style="font-size:38px;font-weight:500;line-height:1">2</span><p class="body" style="font-size:18px">Sit with your feet in the water and your hands resting on your lap, palms up. Many people place a photo of Shri Mataji and a candle in front of them.</p></li>
+          <li style="display:grid;grid-template-columns:56px 1fr"><span class="num" style="font-size:38px;font-weight:500;line-height:1">3</span><p class="body" style="font-size:18px">Meditate for ten to fifteen minutes.</p></li>
+          <li style="display:grid;grid-template-columns:56px 1fr"><span class="num" style="font-size:38px;font-weight:500;line-height:1">4</span><p class="body" style="font-size:18px">Dry your feet, pour the water into the toilet and rinse the basin.</p></li>
+        </ol>
+        <div style="margin-top:44px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:22px 0">
+          <div class="label soft">Practical note</div>
+          <p class="body" style="margin-top:10px;font-size:15px">Test the water with your hand first. If you have a condition affecting your feet or circulation, check with your doctor before using warm water.</p>
+        </div>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Reading</h3><p>A reading column of about 65 characters, a left rail of facts, and large serif numerals for the steps, because the order matters here.</p></div>
+    <div><h3>From reading to doing</h3><p>“Start a footsoak timer” opens a simple timed session with the same calm screen. Every guide ends in an action.</p></div>
+    <div><h3>Status</h3><p>This text is paraphrased from published guidance and is clearly marked as awaiting review until a practitioner signs it off.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ NEW SEEKER ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>New to Sahaja Yoga</h2><code>/start</code></div>
+  <div class="scr__row">
+    <div class="ab-wrap"><div class="ab" id="new">
+      <div data-header></div>
+      <h1 class="display abs" style="left:96px;top:196px;font-size:112px;line-height:.92;width:620px">New to Sahaja Yoga?</h1>
+      <p class="body abs" style="left:96px;top:440px;width:480px;font-size:19px">Sahaja Yoga is a meditation founded by Shri Mataji Nirmala Devi in 1970, and it's always free. Go at your own pace; you can skip any step.</p>
+      <div class="abs" style="left:96px;top:570px;display:flex;gap:28px;align-items:center">
+        <a class="pill pill--solid" style="height:54px;padding:0 30px">Begin step 1</a><a class="text-action" style="font-size:19px">Skip to meditation</a>
+      </div>
+      <p class="abs soft" style="left:96px;top:810px;width:520px;margin:0;font:400 13.5px/1.5 var(--sans)">This site is an independent companion. For free classes near you, visit sahajayoga.org.</p>
+      <div class="journey" style="left:820px;top:190px;width:520px">
+        <div class="jstep jstep--now"><span class="jstep__n">1</span><div><p class="jstep__t">What Sahaja Yoga is</p><p class="jstep__m">A four-minute read</p></div></div>
+        <div class="jstep"><span class="jstep__n">2</span><div><p class="jstep__t">Your Self-Realisation</p><p class="jstep__m">Guided by Shri Mataji · official video</p></div></div>
+        <div class="jstep"><span class="jstep__n">3</span><div><p class="jstep__t">Your first meditation</p><p class="jstep__m">Ten quiet minutes</p></div></div>
+        <div class="jstep"><span class="jstep__n">4</span><div><p class="jstep__t">Kundalini and Bandhan</p><p class="jstep__m">Two short daily practices</p></div></div>
+        <div class="jstep"><span class="jstep__n">5</span><div><p class="jstep__t">Explore the chakras</p><p class="jstep__m">Seven worlds, at your own pace</p></div></div>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Path</h3><p>Five steps, each short. Self-Realisation uses an official recorded experience; the site never claims to give it.</p></div>
+    <div><h3>Interaction</h3><p>Progress is remembered on the device. Every step can be skipped, and “Skip to meditation” is always there.</p></div>
+    <div><h3>Tone</h3><p>Welcoming and plain, with no jargon on the first screen. It points to official classes for anyone who wants a teacher.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ PHONE ═══════════════ -->
+<section class="scr">
+  <div class="scr__title"><h2>Phone</h2><code>390 × 844</code></div>
+  <div class="scr__row" style="gap:28px;flex-wrap:wrap">
+    <div class="ab-wrap"><div class="ab ab--phone" id="p-hero">
+      <div data-header="phone"></div>
+      <div class="display abs" style="left:18px;top:138px;font-size:96px;letter-spacing:-0.025em">SAHAJA</div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:4px;top:214px;width:382px">
+      <div class="display abs" style="right:22px;top:446px;font-size:92px">YOGA</div>
+      <p class="lead abs" style="left:24px;top:562px;font-size:19px">A space to return to yourself.</p>
+      <a class="pill pill--solid abs" style="left:20px;right:20px;top:676px;height:56px;font-size:13px">Begin Meditation</a>
+      <a class="text-action text-action--soft abs" style="left:0;right:0;top:760px;text-align:center;font-size:18px">Explore Chakras</a>
+    </div></div>
+    <div class="ab-wrap"><div class="ab ab--phone" id="p-ascent" data-world="vishuddhi">
+      <div data-header="phone"></div>
+      <div class="display abs" style="left:0;right:0;top:150px;text-align:center;font-size:92px;font-weight:500;letter-spacing:-0.02em">Vishuddhi</div>
+      <div class="form-glow" style="left:10px;top:170px;width:370px;height:370px"></div>
+      <img class="form" src="assets/chakra-vishuddhi.png" alt="" style="left:30px;top:190px;width:330px">
+      <div class="abs" style="left:24px;right:24px;top:560px">
+        <div class="serif" style="font-size:42px;font-weight:500;line-height:1">Communication</div>
+        <p class="soft" style="margin:12px 0 0;font:400 15px/1.5 var(--sans)">The fifth centre, at the neck. Element: ether. Felt in the index fingers.</p>
+      </div>
+      <div class="abs" style="left:24px;right:24px;top:740px;display:flex;gap:10px;align-items:center;justify-content:center">
+        <i style="width:7px;height:7px;border-radius:50%;background:var(--wsoft);opacity:.7"></i><i style="width:7px;height:7px;border-radius:50%;background:var(--wsoft);opacity:.7"></i><i style="width:7px;height:7px;border-radius:50%;background:var(--wsoft);opacity:.7"></i><i style="width:7px;height:7px;border-radius:50%;background:var(--wsoft);opacity:.7"></i><i style="width:10px;height:10px;border-radius:50%;background:var(--glow);box-shadow:0 0 0 4px rgba(142,197,232,.25)"></i><i style="width:7px;height:7px;border-radius:50%;border:1px solid var(--wsoft)"></i><i style="width:7px;height:7px;border-radius:50%;border:1px solid var(--wsoft)"></i>
+      </div>
+      <a class="text-action abs" style="left:0;right:0;top:784px;text-align:center;font-size:17px">Enter Vishuddhi →</a>
+    </div></div>
+    <div class="ab-wrap"><div class="ab ab--phone" id="p-session">
+      <div class="sbar" style="inset:30px 24px auto 24px">
+        <div><p class="sbar__t" style="font-size:22px">Mantra</p><p class="sbar__s">Quick sit</p></div>
+        <div class="sbar__r"><p class="sbar__t" style="font-size:22px">Round 2</p><p class="sbar__s">7 of 10</p></div>
+      </div>
+      <div class="num abs" style="left:0;right:0;top:150px;text-align:center;font-size:142px;font-weight:500;letter-spacing:-0.03em;line-height:1">12:48</div>
+      <div class="heart-glow" style="left:20px;top:260px;width:350px;height:300px"></div>
+      <img class="lotus" src="assets/lotus.png" alt="" style="left:10px;top:222px;width:370px">
+      <svg class="seeds" data-seeds="arc" data-lit="7" data-r="700" data-span="26" data-size="6" width="340" height="80" style="left:25px;top:500px;color:var(--ink3)"></svg>
+      <p class="abs soft" style="left:0;right:0;top:770px;text-align:center;margin:0;font:400 14px/1 var(--sans)">Tap anywhere to count</p>
+    </div></div>
+    <div class="ab-wrap"><div class="ab ab--phone" id="p-vishuddhi" data-world="vishuddhi">
+      <div data-header="phone"></div>
+      <div class="display abs" style="left:0;right:0;top:140px;text-align:center;font-size:82px;font-weight:500;letter-spacing:-0.02em">Vishuddhi</div>
+      <div class="form-glow" style="left:10px;top:160px;width:370px;height:370px"></div>
+      <img class="form" src="assets/chakra-vishuddhi.png" alt="" style="left:30px;top:180px;width:330px">
+      <p class="serif abs" style="left:24px;right:24px;top:528px;margin:0;font-size:24px;line-height:1.25;font-weight:500;text-align:center">The centre of communication, diplomacy and collectivity.</p>
+      <div class="abs" style="left:24px;right:24px;top:612px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(234,243,249,.18);border-bottom:1px solid rgba(234,243,249,.18);padding:12px 0">
+        <div><p class="raga__label" style="margin:0 0 6px">Raga</p><p class="serif" style="margin:0;font-size:22px;font-weight:500">Jaijaivanti</p></div>
+        <a class="pill pill--sm pill--quiet">Enable music</a>
+      </div>
+      <a class="pill pill--solid abs" style="left:20px;right:20px;top:712px;height:56px">Meditate here</a>
+      <a class="text-action abs" style="left:0;right:0;top:790px;text-align:center;font-size:17px">Understand Vishuddhi</a>
+    </div></div>
+    <div class="ab-wrap"><div class="ab ab--phone" id="p-practice">
+      <div data-header="phone"></div>
+      <p class="abs soft" style="left:24px;top:118px;margin:0;font:400 13px/1 var(--sans)">Friday, 16 October</p>
+      <a class="display abs" style="left:24px;top:142px;width:340px;font-size:54px;font-weight:600;line-height:.98;color:var(--ink);text-decoration:none">Begin Morning Meditation →</a>
+      <p class="abs soft" style="left:24px;top:262px;margin:0;font:400 14px/1.4 var(--sans)">24 min · your default</p>
+      <p class="serif abs" style="left:24px;top:310px;width:340px;margin:0;font-size:25px;line-height:1.3;font-weight:500">This week you sat 5 times, for 2 hours 14 minutes, and counted 23 rounds.</p>
+      <div class="abs" style="left:24px;top:446px;width:342px">
+        <p class="list__h">October</p>
+        <div class="cal"><span class="cal__dow">M</span><span class="cal__dow">T</span><span class="cal__dow">W</span><span class="cal__dow">T</span><span class="cal__dow">F</span><span class="cal__dow">S</span><span class="cal__dow">S</span></div>
+        <div class="cal" data-cal="20,0,15,24,30,10,0,22,18,0,25,40,12,20,28,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" data-today="16" data-offset="3" style="margin-top:-8px"></div>
+      </div>
+    </div></div>
+  </div>
+  <div class="scr__notes">
+    <div><h3>Recomposed</h3><p>These are recomposed for the phone, not shrunk. On the hero, SAHAJA and YOGA frame the lotus top and bottom. Primary actions are full-width at thumb height, and the portrait stays visible in the header.</p></div>
+    <div><h3>Touch</h3><p>Every target is at least 44 px, and the meditation counter is the whole screen. The Ascent becomes a vertical swipe with a dot rail.</p></div>
+    <div><h3>Performance</h3><p>On phones the 3D is capped at 1.5× pixel density, and still renders take over when the device is slow or the battery is low.</p></div>
+  </div>
+</section>
+
+<script src="deck.js"></script>
+</body>
+</html>

@@ -17,3 +17,7 @@ node_modules/
 out/
 next-env.d.ts
 *.tsbuildinfo
+
+# design: exports and the pending portrait crop stay local
+design/private/
+design/exports/
