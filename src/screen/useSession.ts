@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from 'react'
-import { createSession, elapsed, sessionReducer, type SessionState } from '../engine/session'
+import { createSession, elapsed, progress, sessionReducer, type SessionState } from '../engine/session'
 
 const KEY = (slug: string) => `sy.session.${slug}`
 const HISTORY = 'sy.history'
@@ -18,7 +18,10 @@ function load(slug: string): SessionState {
     const raw = localStorage.getItem(KEY(slug))
     if (raw) {
       const s = JSON.parse(raw) as SessionState
-      if (s && s.chakra === slug && !s.ended) {
+      const valid =
+        !!s && s.chakra === slug && !s.ended && Array.isArray(s.events) && typeof s.banked === 'number' &&
+        s.events.every((e) => e && (e.kind === 'lap' || e.kind === 'round') && typeof e.at === 'number')
+      if (valid) {
         // Resume paused: never count time the page was closed.
         return { ...s, banked: s.banked, runStart: null }
       }
@@ -30,16 +33,17 @@ function load(slug: string): SessionState {
 }
 
 export function saveToHistory(s: SessionState) {
-  if (s.taps === 0) return
+  const p = progress(s)
+  if (p.taps === 0) return
   try {
     const list: SavedSession[] = JSON.parse(localStorage.getItem(HISTORY) ?? '[]')
     list.unshift({
       chakra: s.chakra,
       endedAt: Date.now(),
       durationMs: s.banked,
-      taps: s.taps,
-      rounds: Math.floor(s.taps / 10),
-      splits: s.splits,
+      taps: p.taps,
+      rounds: p.splits.length,
+      splits: p.splits,
     })
     localStorage.setItem(HISTORY, JSON.stringify(list.slice(0, 500)))
   } catch {

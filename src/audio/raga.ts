@@ -1,38 +1,108 @@
 /**
- * Raga playback. Plays the licensed recording at `file` if it exists.
- * Until one is added, it falls back to a synthesised tanpura drone
- * (Pa · Sa · Sa · low Sa) tuned to the raga's Sa, clearly labelled as a placeholder.
+ * Raga playback, in order of preference:
+ * 1. `recording`: the full piece bundled in /public/audio.
+ * 2. `stream`: the same passage streamed from its archive (start/end seconds within a longer tape side).
+ * 3. `drone`: a synthesised tanpura (Pa · Sa · Sa · low Sa) tuned to the raga's Sa, if neither can play.
  */
-export type RagaSource = 'recording' | 'drone'
+export type RagaSource = 'recording' | 'stream' | 'drone'
+
+export type RagaTrack = {
+  file: string
+  stream?: { url: string; start: number; end: number }
+  sa: number
+}
 
 export class RagaPlayer {
   private ctx: AudioContext | null = null
   private master: GainNode | null = null
   private audio: HTMLAudioElement | null = null
   private timer: number | null = null
+  private segment = { start: 0, end: Infinity }
   source: RagaSource | null = null
 
-  constructor(private file: string, private sa: number) {}
+  constructor(private track: RagaTrack) {}
 
   async detect(): Promise<RagaSource> {
     try {
-      const r = await fetch(this.file, { method: 'HEAD' })
+      const r = await fetch(this.track.file, { method: 'HEAD' })
       const type = r.headers.get('content-type') ?? ''
-      this.source = r.ok && type.startsWith('audio') ? 'recording' : 'drone'
+      if (r.ok && type.startsWith('audio')) return (this.source = 'recording')
     } catch {
-      this.source = 'drone'
+      /* offline or missing */
     }
-    return this.source
+    return (this.source = this.track.stream ? 'stream' : 'drone')
   }
 
   async play() {
     if (!this.source) await this.detect()
-    if (this.source === 'recording') {
-      this.audio ??= Object.assign(new Audio(this.file), { loop: true, volume: 0 })
-      await this.audio.play()
-      this.fadeElement(0.8)
-      return
+    if (this.source !== 'drone') {
+      try {
+        await this.playElement()
+        return
+      } catch {
+        // Recording or stream unavailable: fall back to the drone.
+        this.audio = null
+        this.source = 'drone'
+      }
     }
+    await this.playDrone()
+  }
+
+  pause() {
+    if (this.audio) this.fadeElement(0, () => this.audio?.pause())
+    if (this.ctx && this.master) this.master.gain.setTargetAtTime(0, this.ctx.currentTime, 0.4)
+    if (this.timer !== null) {
+      clearTimeout(this.timer)
+      this.timer = null
+    }
+  }
+
+  dispose() {
+    this.pause()
+    setTimeout(() => this.ctx?.close(), 1500)
+  }
+
+  /** Seconds into the piece, and its length, for display. */
+  position(): { at: number; length: number } | null {
+    const a = this.audio
+    if (!a || !Number.isFinite(a.duration)) return null
+    const end = Math.min(this.segment.end, a.duration)
+    return { at: Math.max(0, a.currentTime - this.segment.start), length: end - this.segment.start }
+  }
+
+  private async playElement() {
+    if (!this.audio) {
+      const useStream = this.source === 'stream' && this.track.stream
+      const src = useStream ? this.track.stream!.url : this.track.file
+      this.segment = useStream ? { start: this.track.stream!.start, end: this.track.stream!.end } : { start: 0, end: Infinity }
+      const a = new Audio()
+      a.preload = 'auto'
+      a.volume = 0
+      a.src = src
+      // Loop the piece itself, not the whole tape side.
+      a.addEventListener('timeupdate', () => {
+        if (a.currentTime >= this.segment.end - 0.25) a.currentTime = this.segment.start
+      })
+      a.addEventListener('ended', () => {
+        a.currentTime = this.segment.start
+        void a.play()
+      })
+      await new Promise<void>((resolve, reject) => {
+        const ok = () => { cleanup(); resolve() }
+        const fail = () => { cleanup(); reject(new Error('audio failed')) }
+        const cleanup = () => { a.removeEventListener('loadedmetadata', ok); a.removeEventListener('error', fail) }
+        a.addEventListener('loadedmetadata', ok)
+        a.addEventListener('error', fail)
+        a.load()
+      })
+      if (this.segment.start > 0) a.currentTime = this.segment.start
+      this.audio = a
+    }
+    await this.audio.play()
+    this.fadeElement(0.85)
+  }
+
+  private async playDrone() {
     this.ctx ??= new AudioContext()
     await this.ctx.resume()
     if (!this.master) {
@@ -45,31 +115,13 @@ export class RagaPlayer {
     this.cycle()
   }
 
-  pause() {
-    if (this.audio) {
-      this.fadeElement(0, () => this.audio?.pause())
-    }
-    if (this.ctx && this.master) {
-      this.master.gain.setTargetAtTime(0, this.ctx.currentTime, 0.4)
-    }
-    if (this.timer !== null) {
-      clearTimeout(this.timer)
-      this.timer = null
-    }
-  }
-
-  dispose() {
-    this.pause()
-    setTimeout(() => this.ctx?.close(), 1500)
-  }
-
   private fadeElement(to: number, done?: () => void) {
     const a = this.audio
     if (!a) return
     const from = a.volume
     const start = performance.now()
     const step = () => {
-      const k = Math.min(1, (performance.now() - start) / 1200)
+      const k = Math.min(1, (performance.now() - start) / 1400)
       a.volume = from + (to - from) * k
       if (k < 1) requestAnimationFrame(step)
       else done?.()
@@ -80,7 +132,7 @@ export class RagaPlayer {
   /** One tanpura cycle: Pa, Sa', Sa', Sa (low), about 5 seconds. */
   private cycle() {
     if (!this.ctx || !this.master) return
-    const sa = this.sa
+    const sa = this.track.sa
     const notes = [sa * 1.5, sa * 2, sa * 2, sa]
     const t0 = this.ctx.currentTime + 0.05
     notes.forEach((f, i) => this.pluck(f, t0 + i * 1.25))
@@ -98,7 +150,6 @@ export class RagaPlayer {
     filter.frequency.setValueAtTime(2600, at)
     filter.frequency.exponentialRampToValueAtTime(900, at + 4)
     out.connect(filter).connect(this.master!)
-    // The tanpura's buzzing "jawari": rich, slowly beating harmonics.
     const partials = [1, 2, 3, 4, 5, 6, 8]
     partials.forEach((h, i) => {
       const o = ctx.createOscillator()

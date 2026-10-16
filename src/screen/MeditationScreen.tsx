@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import type { Chakra } from '../chakra/chakras'
 import { MooladharaForm } from '../chakra/MooladharaForm'
 import { RagaPlayer, type RagaSource } from '../audio/raga'
-import { currentRound, formatTime, lapInRound, LAPS_PER_ROUND, roundsCompleted } from '../engine/session'
+import { formatTime, lastSplit, LAPS_PER_ROUND, progress } from '../engine/session'
 import { saveToHistory, useClock, useSession } from './useSession'
 
 const HOLD_MS = 550
@@ -59,30 +59,46 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
   const [caption, setCaption] = useState<string | null>(null)
   const [ripples, setRipples] = useState<Ripple[]>([])
 
-  const lap = lapInRound(state.taps)
-  const round = currentRound(state.taps)
-  const done = roundsCompleted(state.taps)
+  const prog = useMemo(() => progress(state), [state])
+  const { lap, round, taps, splits } = prog
+  const done = splits.length
   const running = state.runStart !== null
-  const started = state.taps > 0
+  const started = state.events.length > 0
   const paused = started && !running && !state.ended
 
   // ── Raga ──────────────────────────────────────────────
-  const player = useMemo(() => new RagaPlayer(chakra.raga.file, chakra.raga.drone.sa), [chakra])
+  const player = useMemo(
+    () => new RagaPlayer({ file: chakra.raga.file, stream: chakra.raga.stream, sa: chakra.raga.sa }),
+    [chakra],
+  )
   const [playing, setPlaying] = useState(false)
   const [source, setSource] = useState<RagaSource | null>(null)
+  const [ragaPos, setRagaPos] = useState<{ at: number; length: number } | null>(null)
   useEffect(() => {
     player.detect().then(setSource)
     return () => player.dispose()
   }, [player])
+  useEffect(() => {
+    if (!playing) return
+    const id = setInterval(() => setRagaPos(player.position()), 1000)
+    return () => clearInterval(id)
+  }, [playing, player])
   const toggleRaga = useCallback(async () => {
     if (playing) {
       player.pause()
       setPlaying(false)
     } else {
       await player.play()
+      setSource(player.source)
       setPlaying(true)
     }
   }, [playing, player])
+  const ragaLine =
+    source === 'drone'
+      ? 'Tanpura drone'
+      : playing && ragaPos
+        ? `${formatTime(ragaPos.at * 1000)} / ${formatTime(ragaPos.length * 1000)}`
+        : chakra.raga.artist
 
   // ── Counting ──────────────────────────────────────────
   const say = useCallback((msg: string, ms = 1800) => {
@@ -90,27 +106,36 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
     window.setTimeout(() => setCaption((c) => (c === msg ? null : c)), ms)
   }, [])
 
+  const celebrate = useCallback((n: number) => {
+    bloom.current = 1
+    setWave((w) => w + 1)
+    say(`Round ${n} complete`)
+    vibrate([30, 70, 30])
+  }, [say])
+
   const tap = useCallback(() => {
     if (state.ended) return
-    const next = state.taps + 1
     dispatch({ type: 'tap', now: performance.now() })
     pulse.current = 1
-    if (next % LAPS_PER_ROUND === 0) {
-      bloom.current = 1
-      setWave((w) => w + 1)
-      say(`Round ${Math.floor(next / LAPS_PER_ROUND)} complete`)
-      vibrate([30, 70, 30])
-    } else {
-      vibrate(8)
-    }
-  }, [state.ended, state.taps, dispatch, say])
+    if (lap === LAPS_PER_ROUND - 1) celebrate(round)
+    else vibrate(8)
+  }, [state.ended, lap, round, dispatch, celebrate])
+
+  // Close the current round now. Nothing to close at lap 0.
+  const nextRound = useCallback(() => {
+    if (state.ended || lap === 0) return
+    dispatch({ type: 'next', now: performance.now() })
+    if (lap < LAPS_PER_ROUND) celebrate(round)
+    else vibrate(16)
+  }, [state.ended, lap, round, dispatch, celebrate])
 
   const undo = useCallback(() => {
-    if (state.taps === 0 || state.ended) return
+    const last = state.events[state.events.length - 1]
+    if (!last || state.ended) return
     dispatch({ type: 'undo', now: performance.now() })
     vibrate(16)
-    say('Last lap undone', 1300)
-  }, [state.taps, state.ended, dispatch, say])
+    say(last.kind === 'round' ? 'Next round undone' : 'Last lap undone', 1300)
+  }, [state.events, state.ended, dispatch, say])
 
   const togglePause = useCallback(() => {
     if (!started || state.ended) return
@@ -160,15 +185,18 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
     const onKey = (e: KeyboardEvent) => {
       if (e.repeat) return
       const onButton = e.target instanceof HTMLElement && !!e.target.closest('button, a')
-      if ((e.key === ' ' || e.key === 'Enter') && !onButton) {
+      if (e.key === ' ' && !onButton) {
         e.preventDefault()
         tap()
+      } else if (e.key === 'Enter' && !onButton) {
+        e.preventDefault()
+        nextRound()
       } else if (e.key === 'Backspace' || e.key.toLowerCase() === 'z') undo()
       else if (e.key.toLowerCase() === 'p') togglePause()
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
-  }, [tap, undo, togglePause])
+  }, [tap, nextRound, undo, togglePause])
 
   const shield = { onPointerDown: (e: React.SyntheticEvent) => e.stopPropagation(), onPointerUp: (e: React.SyntheticEvent) => e.stopPropagation() }
 
@@ -179,8 +207,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
     '--glow': chakra.theme.glow,
   } as React.CSSProperties
 
-  const lastSplit = state.splits.length ? state.splits[state.splits.length - 1] : 0
-  const roundTime = started ? time - lastSplit : 0
+  const roundTime = started ? time - lastSplit(prog) : 0
 
   return (
     <main
@@ -245,7 +272,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
             </span>
             <span className="raga-text">
               <span className="raga-name"><span className="raga-word">Raga </span>{chakra.raga.name.replace(/^Raga /, '')}</span>
-              <small>{source === 'drone' ? 'Tanpura drone for now' : playing ? 'Playing' : 'Play raga'}</small>
+              <small>{ragaLine}</small>
             </span>
           </button>
           {started && !state.ended && (
@@ -265,6 +292,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
           <li><kbd>Space</kbd> count</li>
           <li><kbd>Hold</kbd> undo</li>
           <li><kbd>P</kbd> pause</li>
+          <li><kbd>Enter</kbd> next round</li>
         </ul>
       </div>
 
@@ -272,16 +300,16 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
         <div className="stat stat-lap" aria-live="polite" aria-atomic="true">
           <span className="label">Lap</span>
           <span className="lap">
-            <span className="lap-mask"><span className="lap-num" key={state.taps}>{String(lap).padStart(2, '0')}</span></span>
+            <span className="lap-mask"><span className="lap-num" key={taps}>{String(lap).padStart(2, '0')}</span></span>
             <span className="lap-of">/{LAPS_PER_ROUND}</span>
           </span>
           <span className="sr-only">Lap {lap} of {LAPS_PER_ROUND}, round {round}</span>
         </div>
-        <div className="stat stat-round">
+        <button type="button" className="stat stat-round" aria-label="Next round" onClick={nextRound} {...shield}>
           <span className="label">Round</span>
           <span className="mid"><span className="lap-mask"><span className="mid-num" key={round}>{String(round).padStart(2, '0')}</span></span></span>
           <span className="note">{done === 0 ? 'Ten laps make a round' : `${done} complete`}</span>
-        </div>
+        </button>
         <div className="stat stat-time">
           <span className="label">Time</span>
           <span className="mid">{formatTime(time)}</span>
@@ -301,13 +329,13 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
           </div>
           <dl className="summary-stats">
             <div><dt>Time</dt><dd>{formatTime(state.banked)}</dd></div>
-            <div><dt>Laps</dt><dd>{state.taps}</dd></div>
-            <div><dt>Avg round</dt><dd>{done ? formatTime(state.splits[done - 1] / done) : '—'}</dd></div>
+            <div><dt>Laps</dt><dd>{taps}</dd></div>
+            <div><dt>Avg round</dt><dd>{done ? formatTime(splits[done - 1] / done) : '—'}</dd></div>
           </dl>
-          {state.splits.length > 0 && (
+          {done > 0 && (
             <ol className="summary-splits" aria-label="Round times">
-              {state.splits.map((ms, i) => (
-                <li key={i}><span>R{i + 1}</span>{formatTime(ms - (i ? state.splits[i - 1] : 0))}</li>
+              {splits.map((ms, i) => (
+                <li key={i}><span>R{i + 1}</span>{formatTime(ms - (i ? splits[i - 1] : 0))}</li>
               ))}
             </ol>
           )}
@@ -315,6 +343,10 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
             <button className="solid" onClick={() => dispatch({ type: 'reset' })} autoFocus>Begin again</button>
             <p>Saved to your practice on this device.</p>
           </div>
+          <p className="summary-credit">
+            {chakra.raga.name} · {chakra.raga.credit.performers} · {chakra.raga.credit.source} ·{' '}
+            <a href={chakra.raga.credit.url} target="_blank" rel="noopener noreferrer">{chakra.raga.credit.license}</a>
+          </p>
         </section>
       )}
     </main>
