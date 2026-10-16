@@ -49,3 +49,44 @@
   .hero__ctas .text-action--soft { text-align: center; font-size: 18px; }
   .hero__breathe { font-size: 24px; }
 }
+
+/* ── the Ascent ─────────────────────────────────────────── */
+.as { position: relative; height: 700svh; }
+.as__pin { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.as__bg, .as__layer { position: absolute; inset: 0; }
+.as__layer { color: var(--wink); pointer-events: none; }
+.as__name { text-align: center; font-weight: 500; letter-spacing: -0.015em; white-space: nowrap; z-index: 2; }
+.as__form { aspect-ratio: 1; z-index: 5; will-change: transform, opacity; }
+.as__glow { position: absolute; inset: 0; }
+.as__img { position: absolute; inset: 5%; width: 90%; height: 90%; }
+.as__text { z-index: 6; }
+.as__quality { margin: 0; font-size: 64px; font-weight: 500; line-height: 1; }
+.as__line { margin: 14px 0 0; font: 400 16px/1.55 var(--sans); color: var(--wsoft); max-width: 380px; }
+.as__static .as__layer { position: absolute; }
+.as__spine { z-index: 8; display: grid; gap: 22px; justify-items: end; color: var(--wsoft); }
+.as__spine::before { content: ""; position: absolute; right: 4px; top: 6px; bottom: 6px; width: 1px; background: color-mix(in srgb, var(--wink) 28%, transparent); }
+.as__kundalini { position: absolute; right: 4px; top: 6px; bottom: 6px; width: 1px; background: var(--glow); transform-origin: bottom; transform: scaleY(0); box-shadow: 0 0 8px var(--glow); }
+.as__spine button {
+  position: relative; display: flex; gap: 14px; align-items: center; background: none; border: 0; padding: 0; cursor: pointer;
+  font: 500 11px/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: inherit; opacity: 0.6; min-height: 14px;
+  transition: opacity 300ms var(--ease-out), color 300ms var(--ease-out);
+}
+.as__spine button:hover { opacity: 1; }
+.as__spine button::after { content: ""; width: 9px; height: 9px; border-radius: 50%; border: 1px solid currentColor; background: var(--env); z-index: 1; transition: background 300ms, box-shadow 300ms; }
+.as__spine button.past { opacity: 0.85; }
+.as__spine button.past::after { background: currentColor; }
+.as__spine button.now { opacity: 1; color: var(--wink); }
+.as__spine button.now::after { background: var(--glow); border-color: var(--glow); box-shadow: 0 0 0 5px color-mix(in srgb, var(--glow) 25%, transparent); }
+.as__enter { z-index: 8; }
+.as__enter .text-action { font-size: 19px; }
+
+@media (max-width: 760px), (max-aspect-ratio: 3/4) {
+  .as__quality { font-size: 42px; }
+  .as__line { font-size: 15px; }
+  .as__spine { left: 0; right: 0 !important; grid-auto-flow: column; justify-content: center; gap: 10px; }
+  .as__spine::before, .as__kundalini { display: none; }
+  .as__spine button { gap: 0; min-width: 24px; min-height: 24px; justify-content: center; }
+  .as__spine button span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .as__spine button::after { width: 7px; height: 7px; }
+  .as__enter { right: 0 !important; left: 0; text-align: center; }
+}
