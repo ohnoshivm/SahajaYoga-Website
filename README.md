@@ -2,7 +2,9 @@
 
 An immersive, beautifully designed Sahaja Yoga meditation website and web app.
 
-**Start here:** [`CLAUDE.md`](CLAUDE.md) (standing rules) · [`SAHAJA_YOGA_MASTER_WEBSITE_PLAN.md`](SAHAJA_YOGA_MASTER_WEBSITE_PLAN.md) (full specification) · [`docs/01-audit-architecture-plan.md`](docs/01-audit-architecture-plan.md) (audit, architecture, phased plan)
+Starting from scratch. The first build is archived on the `archive/v0-first-build` branch.
+
+**Start here:** [`CLAUDE.md`](CLAUDE.md) (standing rules) · [`SAHAJA_YOGA_MASTER_WEBSITE_PLAN.md`](SAHAJA_YOGA_MASTER_WEBSITE_PLAN.md) (full specification)
 
 ## References
 - `references/approved-current-hero.png`: design source of truth
