@@ -2,6 +2,8 @@
 @import "../src/design-system/tokens.css";
 @import "../src/design-system/components.css";
 @import "../src/design-system/ascent.css";
+@import "../src/design-system/meditation.css";
+@import "../src/design-system/pages.css";
 
 /* Expose semantic tokens to Tailwind utilities (bg-bg, text-ink, font-display …) */
 @theme inline {
