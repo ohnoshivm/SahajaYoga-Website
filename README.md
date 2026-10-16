@@ -1,17 +1,8 @@
-# SAHAJA YOGA
+# SahajaYoga Website
 
-An immersive, beautifully designed Sahaja Yoga meditation website and web app.
-
-Starting from scratch. The first build is archived on the `archive/v0-first-build` branch.
-
-**Start here:** [`CLAUDE.md`](CLAUDE.md) (standing rules) · [`SAHAJA_YOGA_MASTER_WEBSITE_PLAN.md`](SAHAJA_YOGA_MASTER_WEBSITE_PLAN.md) (full specification)
-
-## References
-- `references/approved-current-hero.png`: design source of truth
-- `references/replace-header-center-symbol.png`: the header symbol to replace with a permitted photo of Shri Mataji
-- `references/buttermax-composition-reference.png`: composition inspiration only
+An immersive, interactive website / web app for Sahaja Yoga meditation. Restarted from zero on 17 Oct 2026; the previous plan and build live on branch `archive/v1-master-plan`.
 
 ## Research
-- [`research/sahaja-yoga-knowledge-base.md`](research/sahaja-yoga-knowledge-base.md)
-- [`research/data/subtle-system.json`](research/data/subtle-system.json)
-- [`research/site-teardowns/`](research/site-teardowns/teardown-noomo-buttermax-buro.md)
+- [`research/sahaja-yoga-knowledge-base.md`](research/sahaja-yoga-knowledge-base.md): Sahaja Yoga knowledge base (founder, subtle system, practices, places, research, controversy).
+- [`research/data/subtle-system.json`](research/data/subtle-system.json): structured chakra / channel / hand-map data.
+- [`research/site-teardowns/`](research/site-teardowns/teardown-noomo-buttermax-buro.md): teardown of Noomo Labs, Buttermax and Büro.
