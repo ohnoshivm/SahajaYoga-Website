@@ -12,3 +12,8 @@ research/sources/raw/
 
 # Media awaiting rights confirmation (never publish until approved)
 assets-pending/
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
