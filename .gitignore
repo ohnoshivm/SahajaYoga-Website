@@ -9,3 +9,6 @@ dist/
 
 # Third-party source material (copyrighted) kept local only
 research/sources/raw/
+
+# Media awaiting rights confirmation (never publish until approved)
+assets-pending/

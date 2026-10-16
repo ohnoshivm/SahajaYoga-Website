@@ -183,7 +183,8 @@ All three share:
 ## 6. Asset register
 | Asset | Status | Source / action needed |
 |---|---|---|
-| **Shri Mataji photograph (header)** | ❌ **Missing, permission required** | Official sites offer photos for personal meditation (shrimataji.org, us.sahajayoga.org 21-day page), but **that is not a licence for website use**. I need you to provide a photo with written permission (e.g. from the Shri Mataji Foundation or a national Sahaja Yoga trust). Until then: a clearly labelled placeholder ("Photograph pending approval") in the exact circular frame. |
+| **Shri Mataji photograph (header)** | 🟡 **Received 16 Oct 2026**, puja portrait (`assets-pending/`, gitignored). **Pending:** (a) source and permission, (b) confirmation it is an unaltered original (it shows signs of AI upscaling/restoration). Planned use: face-only circular crop for the header. |
+| ~~Shri Mataji photograph (original row)~~ | ❌ **Missing, permission required** | Official sites offer photos for personal meditation (shrimataji.org, us.sahajayoga.org 21-day page), but **that is not a licence for website use**. I need you to provide a photo with written permission (e.g. from the Shri Mataji Foundation or a national Sahaja Yoga trust). Until then: a clearly labelled placeholder ("Photograph pending approval") in the exact circular frame. |
 | Hero 3D lotus | 🛠 To build | Procedural Three.js, recreated from the approved reference. |
 | Chakra 3D forms ×7 (+Void) | 🛠 To build | Geometry from the official Sahaja Yoga USA chakra guides (petal counts and inner symbols verified). Vishuddhi first. |
 | Chakra colours | ✅ Sourced | Official chakra guides (see `research/data/subtle-system.json`). |
