@@ -214,7 +214,14 @@ All three share:
 
 ---
 
-## 8. Decisions I need from you
+## 8. Decisions (answered 16 Oct 2026)
+- **Photo:** the user will send a permitted photo of Shri Mataji, with its permission source. It is to be recorded in the asset register.
+- **Affiliation:** independent project. The footer states it is not an official Sahaja Yoga site.
+- **Ragas:** the Bandcamp official embed (USA Collective, "Music and Meditation") for now. The crossfading engine is built for when hosting rights are granted.
+- **Fonts:** free (Google Fonts). Candidates to be tested at hero scale.
+- **Title layout:** prototype A, B and C live, recommending A.
+
+### Original questions
 1. **Shri Mataji photo:** can you supply a photo you have permission to use, or should I proceed with the labelled placeholder?
 2. **Affiliation:** is this independent, or built with or for a Sahaja Yoga national trust? This affects wording, logo and the class finder.
 3. **Title layout:** are you OK for me to prototype A, B and C live and recommend one from screenshots?
