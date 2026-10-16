@@ -1,0 +1,217 @@
+{
+  "_meta": {
+    "description": "Structured model of the Sahaja Yoga subtle system for the website/app. Public-facing fields come from official Sahaja Yoga USA chakra guides (us.sahajayoga.org/handouts) and shrimataji.org. Fields under 'practitioner' are traditional in-community knowledge that official public sites avoid; they need confirmation from the Sahaja Yoga collective before use.",
+    "hand_orientation_note": "Fingers are the same on both hands. Left hand = left channel, right hand = right channel, both hands equally = centre channel.",
+    "compiled": "2026-10-16"
+  },
+  "kundalini": {
+    "name": "Kundalini",
+    "meaning": "From Sanskrit 'kundala', coil",
+    "location": "Sacrum bone (triangular bone at the base of the spine), slightly above Mooladhara",
+    "sanskrit_note": "Ancient Greeks called the sacrum 'hieron osteon', sacred bone",
+    "symbol": "Spiral coiled 3.5 times inside a triangle",
+    "felt_as": "Cool breeze on the palms and above the fontanel; may feel warm at first"
+  },
+  "channels": [
+    {
+      "id": "ida",
+      "name": "Ida Nadi",
+      "aka": ["Left channel", "Moon channel", "Channel of desire"],
+      "starts": "Mooladhara",
+      "ends": "Right side of the brain (superego)",
+      "time": "Past",
+      "governs": ["Emotions", "Desires", "Memories", "Habits", "Conditionings"],
+      "pure_quality": "Joy",
+      "imbalance": ["Depression", "Lethargy", "Sadness", "Low self-esteem", "Guilt"],
+      "elements_to_clear": ["Fire (candle)", "Warm salt water foot-soak"]
+    },
+    {
+      "id": "pingala",
+      "name": "Pingala Nadi",
+      "aka": ["Right channel", "Sun channel", "Channel of action"],
+      "starts": "Swadisthan",
+      "ends": "Left side of the brain (ego)",
+      "time": "Future",
+      "governs": ["Action", "Planning", "Thinking", "Physical and mental activity"],
+      "pure_quality": "Dynamism with a still mind",
+      "imbalance": ["Irritability", "Aggression", "Over-thinking", "Stress", "Overheated liver"],
+      "elements_to_clear": ["Ice pack on the liver", "Cold salt water"]
+    },
+    {
+      "id": "sushumna",
+      "name": "Sushumna Nadi",
+      "aka": ["Central channel", "Middle path", "Channel of ascent"],
+      "starts": "Sacrum",
+      "ends": "Sahasrara",
+      "time": "Present",
+      "governs": ["Spiritual evolution", "Integration with collective consciousness"],
+      "pure_quality": "Balance, the present moment"
+    }
+  ],
+  "chakras": [
+    {
+      "n": 1,
+      "id": "mooladhara",
+      "name": "Mooladhara",
+      "meaning": "moola = root, adhara = support",
+      "title": "Innocence and Wisdom",
+      "location": "Pelvic plexus, base of the spine",
+      "color_name": "Coral red",
+      "color_hex_suggested": "#E8463A",
+      "element": "Earth",
+      "hand_point": "Base of the palm / wrist (both hands)",
+      "qualities": ["Innocence", "Purity", "Simplicity", "Childlike joy", "Inner wisdom", "Dignity", "Balance", "Purpose and direction", "Connection to Earth", "Harmony with nature"],
+      "physical": ["Reproductive system", "Excretory system"],
+      "imbalance_signs": ["Poor sense of direction", "Poor memory", "Poor sense of balance"],
+      "balance_with": ["Sit on the earth, palms down beside hips", "Warm salt water foot-soak"],
+      "practitioner": { "petals": 4, "deity": "Shri Ganesha", "verify": true }
+    },
+    {
+      "n": 2,
+      "id": "swadisthan",
+      "name": "Swadisthan",
+      "title": "Creativity",
+      "location": "Aortic plexus, above the sacrum",
+      "color_name": "Yellow",
+      "color_hex_suggested": "#F5C518",
+      "element": "Fire",
+      "hand_point": "Thumbs",
+      "qualities": ["Creativity", "Appreciation of beauty", "Inspiration", "Idea generation", "Undistracted attention", "Keen intellectual perception", "Pure knowledge", "Spiritual knowledge"],
+      "physical": ["Liver", "Kidneys", "Spleen", "Pancreas", "Female reproductive organs", "Supplies energy to the brain's grey cells"],
+      "imbalance_signs": ["Difficulty meditating", "Lack of creativity", "Insomnia", "Irritability"],
+      "balance_with": ["Daily foot-soak", "Right side: cold or iced salt water, ice pack above right hip-crease", "Left side: hot salt water, candle flame in front of left Swadisthan"],
+      "practitioner": { "petals": 6, "deity": "Shri Brahmadeva-Saraswati", "verify": true }
+    },
+    {
+      "n": 3,
+      "id": "nabhi",
+      "name": "Nabhi",
+      "title": "Generosity, Evolution, Contentment",
+      "location": "Spinal column at the level of the navel; solar plexus",
+      "color_name": "Green",
+      "color_hex_suggested": "#2BA84A",
+      "element": "Water",
+      "hand_point": "Middle fingers",
+      "qualities": ["Generosity", "Nurturing", "Contentment", "Peace", "Joy", "Balance", "Righteousness (dharma)", "Honesty", "Pure attention", "Dignity", "Evolution"],
+      "physical": ["Left: pancreas, spleen", "Centre: stomach, intestines", "Right: liver, gall bladder"],
+      "imbalance_signs": ["Left: family or money worries", "Centre: digestion", "Right: worry, anxiety, stinginess"],
+      "balance_with": ["Right hand rotating clockwise in front of Nabhi", "Ice pack on liver (right)", "Warm water foot-soak (left)"],
+      "practitioner": { "petals": 10, "deity": "Shri Vishnu-Lakshmi", "verify": true }
+    },
+    {
+      "n": "3a",
+      "id": "void",
+      "name": "Void (Bhavasagara)",
+      "title": "Ocean of Illusion / Self-mastery",
+      "location": "Abdominal region surrounding the Nabhi",
+      "color_name": "Green",
+      "color_hex_suggested": "#3FB98A",
+      "element": "Sky and salt water (the ocean)",
+      "hand_point": "Ring around the centre of the palm",
+      "qualities": ["Balance", "Righteousness", "Personal dignity", "Self-discipline", "Self-guidance", "Decisiveness", "Patience", "Thirst for truth", "Guru principle (being your own master)"],
+      "imbalance_signs": ["Being swayed into dishonesty", "Following false gurus", "Excess alcohol", "Materialism"],
+      "balance_with": ["Salt water foot-soak (salt = guru principle)"],
+      "practitioner": { "petals": null, "deity": "Adi Guru (Dattatreya) and the ten primordial masters", "verify": true }
+    },
+    {
+      "n": 4,
+      "id": "anahat",
+      "name": "Anahat (Heart)",
+      "title": "Love, Compassion, Security",
+      "location": "Spinal column behind the sternum; cardiac plexus",
+      "color_name": "Purple-blue",
+      "color_hex_suggested": "#5B4FB3",
+      "element": "Air",
+      "hand_point": "Little fingers",
+      "qualities": ["Unconditional love", "Compassion", "Gracious behaviour", "Truth", "Joy", "Confidence", "Absence of fear / security", "Positive parental relationships"],
+      "physical": ["Heart", "Lungs", "Breasts", "Thymus gland (antibodies)"],
+      "imbalance_signs": ["Insecurity", "Anxiety", "Palpitations", "Weakened immunity"],
+      "balance_with": ["Deep slow breathing", "Right hand rotating clockwise in front of the heart", "Right hand on heart: 'I am one with my spirit.'"],
+      "practitioner": { "petals": 12, "deity": "Centre: Shri Jagadamba; Left: Shiva-Parvati; Right: Sita-Rama", "verify": true }
+    },
+    {
+      "n": 5,
+      "id": "vishuddhi",
+      "name": "Vishuddhi",
+      "title": "Communication, Diplomacy, Collectivity",
+      "location": "Cervical plexus, neck",
+      "color_name": "Light blue",
+      "color_hex_suggested": "#8EC5E8",
+      "element": "Ether (akasha)",
+      "hand_point": "Index fingers",
+      "qualities": ["Positive relationships", "Effective communication", "Politeness", "Diplomacy", "Sense of community", "Pleasant personality", "Sense of humour", "Witness state"],
+      "physical": ["Neck", "Throat", "Arms", "Face", "Ears", "Mouth", "Teeth", "Nose"],
+      "imbalance_signs": ["Left: guilt, tense shoulders", "Right: harsh talk, colds, sinus"],
+      "balance_with": ["Right hand rotating clockwise in front of the throat", "Candle flame at left neck-shoulder junction", "Speak from the heart, praise rather than criticise"],
+      "practitioner": { "petals": 16, "deity": "Shri Radha-Krishna", "verify": true }
+    },
+    {
+      "n": 6,
+      "id": "agnya",
+      "name": "Agnya",
+      "title": "Forgiveness",
+      "location": "Optic chiasma, centre of the forehead",
+      "color_name": "Silver / white",
+      "color_hex_suggested": "#C9CED6",
+      "element": "Light",
+      "hand_point": "Ring fingers",
+      "qualities": ["Forgiveness", "Compassion", "Humility", "Thoughtless awareness", "Balance of ego and superego"],
+      "physical": ["Sight", "Hearing", "Thought process", "Pituitary and pineal glands"],
+      "imbalance_signs": ["Unable to forgive", "Dwelling on the past", "Egoism", "Worrying, excessive thinking and planning"],
+      "balance_with": ["Meditate outdoors looking at the sky", "Right hand on forehead: 'I forgive everyone, including myself.'", "Less screen time"],
+      "practitioner": { "petals": 2, "deity": "Lord Jesus Christ and Mother Mary", "verify": true }
+    },
+    {
+      "n": 7,
+      "id": "sahasrara",
+      "name": "Sahasrara",
+      "title": "Integration",
+      "location": "Limbic area of the brain; exits at the fontanel",
+      "color_name": "All colours / clear (rainbow lotus)",
+      "color_hex_suggested": "linear rainbow; base #FFFFFF",
+      "element": "Integration of all elements",
+      "hand_point": "Centre of the palm",
+      "qualities": ["Oneness / integration", "Thoughtless awareness", "Doubtless awareness"],
+      "physical": ["Brain"],
+      "imbalance_signs": ["Difficulty feeling vibrations", "Doubts about spiritual reality"],
+      "balance_with": ["Right palm on the crown, rotate clockwise: 'Let me experience the state of meditation.'"],
+      "practitioner": { "petals": 1000, "deity": "Shri Adi Shakti / Shri Mataji Nirmala Devi (Shri Kalki on the right)", "verify": true }
+    }
+  ],
+  "self_realization_sequence": {
+    "source": "Positions and order verified from shrimataji.org/experience-your-self-realization (nine illustrations). Affirmation wording and repetition counts are the traditional guided wording; confirm with the Sahaja Yoga collective before shipping.",
+    "setup": "Sit comfortably, shoes off, left palm open upward on lap toward Shri Mataji's photo, right hand works on the left side of the body, eyes closed.",
+    "steps": [
+      { "step": 1, "position": "Right hand on the heart", "affirmation": "Mother, am I the Spirit?", "times": 3 },
+      { "step": 2, "position": "Right hand on the upper left abdomen", "affirmation": "Mother, am I my own master?", "times": 3 },
+      { "step": 3, "position": "Right hand on the lower left abdomen", "affirmation": "Mother, please give me pure knowledge.", "times": 6 },
+      { "step": 4, "position": "Right hand on the upper left abdomen", "affirmation": "Mother, I am my own master.", "times": 10 },
+      { "step": 5, "position": "Right hand on the heart", "affirmation": "Mother, I am not this body, I am not this mind, I am the pure Spirit.", "times": 12 },
+      { "step": 6, "position": "Right hand at the junction of the neck and left shoulder, head turned right", "affirmation": "Mother, I am not guilty at all.", "times": 16 },
+      { "step": 7, "position": "Right hand across the forehead, head bowed", "affirmation": "Mother, I forgive everyone.", "times": "from the heart, not counted" },
+      { "step": 8, "position": "Right hand on the back of the head, head tilted back", "affirmation": "O Divine Power, if I have made any mistakes, please forgive me.", "times": "from the heart, not counted" },
+      { "step": 9, "position": "Right palm on the fontanel, fingers back, press and rotate clockwise", "affirmation": "Mother, please give me my self-realization.", "times": 7 }
+    ],
+    "after": "Check for a cool or warm breeze: left palm above the head, then right. If nothing is felt, say 'I forgive everyone' a few more times."
+  },
+  "first_week_sequence_official": {
+    "source": "us.sahajayoga.org First-Week-Meditation-Steps handout (exact wording)",
+    "steps": [
+      { "position": "Lower left side, just above the hip", "affirmation": "Mother Kundalini, I want to experience the pure knowledge." },
+      { "position": "Up the left side, just below the ribcage", "affirmation": "I am my own teacher." },
+      { "position": "On the heart", "affirmation": "I am one with my spirit." },
+      { "position": "Left shoulder where it meets the neck", "affirmation": "I do not condemn myself." },
+      { "position": "Across the forehead, head slightly lowered", "affirmation": "I forgive everyone, including myself." },
+      { "position": "Crown, palm firm, rotate clockwise", "affirmation": "Let me experience the state of meditation." }
+    ],
+    "then": "Hand about six inches above the head, palm down, move up and down to feel warmth or coolness. Sit 5 to 10 minutes in silence."
+  },
+  "techniques": {
+    "raising_kundalini": "Left hand in front of the lower abdomen, palm facing body, rises up the front of the body while the right hand circles it clockwise. Above the head, tie a knot. Repeat three times: one knot, then two, then three.",
+    "bandhan": "Shield of protection. Left palm up on lap. Right hand travels from the left hip up over the head and down to the right hip, then back, palm facing the body about two inches away. One left-right-left arc = one; do 7.",
+    "foot_soak": "Evening. Lukewarm water to the ankles with a handful of salt, candle in front, palms up, eyes open. Ask Mother Kundalini to absorb imbalances into the salt water. Up to 10 minutes, rinse, flush, then meditate.",
+    "ice_pack": "On the liver (right side) to cool the right channel.",
+    "candle": "Flame for the left channel (e.g. left Swadisthan, left Vishuddhi).",
+    "clockwise_rotation": "Right hand rotating clockwise a few inches from a chakra, the natural spin of a balanced chakra."
+  }
+}
