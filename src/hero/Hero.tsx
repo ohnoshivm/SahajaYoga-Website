@@ -33,6 +33,45 @@ export function Hero() {
   const completeBloom = useBloom((s) => s.completeBloom);
   const lastPointer = useRef<{ x: number; y: number; t: number } | null>(null);
   const [webgl, setWebgl] = useState(true);
+  const [onScreen, setOnScreen] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // pause the 3D loop when the hero is scrolled away
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // leaving the hero: the letters part and the lotus lifts toward the Ascent
+  useEffect(() => {
+    if (reducedMotion || !sectionRef.current) return;
+    let kill = () => {};
+    let cancelled = false;
+    (async () => {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      if (cancelled || !sectionRef.current) return;
+      gsap.registerPlugin(ScrollTrigger);
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: sectionRef.current, start: "top top", end: "bottom top", scrub: 0.9 },
+          defaults: { ease: "none" },
+        });
+        tl.to(".hero__line--1", { xPercent: -14, autoAlpha: 0.15 }, 0)
+          .to(".hero__line--2", { xPercent: 14, autoAlpha: 0.15 }, 0)
+          .to(".hero__object", { yPercent: -18, autoAlpha: 0 }, 0)
+          .to(".hero__subline, .hero__foot", { autoAlpha: 0, y: -24 }, 0);
+      }, sectionRef);
+      kill = () => ctx.revert();
+    })();
+    return () => {
+      cancelled = true;
+      kill();
+    };
+  }, [reducedMotion]);
 
   useEffect(() => {
     restoreBloom();
@@ -104,6 +143,7 @@ export function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       className="hero room"
       aria-labelledby="hero-title"
       onPointerDown={onPointerDown}
@@ -122,7 +162,7 @@ export function Hero() {
         </h1>
 
         <div className="hero__object" aria-hidden="true">
-          {webgl ? <HeroScene reducedMotion={reducedMotion} /> : <div className="hero__object-fallback" />}
+          {webgl ? <HeroScene reducedMotion={reducedMotion} active={onScreen} /> : <div className="hero__object-fallback" />}
         </div>
       </div>
 

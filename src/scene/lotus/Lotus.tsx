@@ -107,14 +107,14 @@ function makeHaloTexture() {
 }
 
 /** Additive halo that brightens as the lotus opens. */
-function HeartHalo() {
+function HeartHalo({ progressOverride }: { progressOverride?: number }) {
   const ref = useRef<Sprite>(null);
   const texture = useMemo(() => (typeof document !== "undefined" ? makeHaloTexture() : null), []);
   useEffect(() => () => texture?.dispose(), [texture]);
   useFrame(() => {
     const s = ref.current;
     if (!s) return;
-    const p = smoothstep(0.3, 1, useBloom.getState().progress);
+    const p = smoothstep(0.3, 1, progressOverride ?? useBloom.getState().progress);
     (s.material as SpriteMaterial).opacity = 0.15 + 0.75 * p;
     s.scale.setScalar(0.7 + 0.8 * p);
   });
@@ -125,7 +125,7 @@ function HeartHalo() {
   );
 }
 
-export function Lotus({ breathe = true }: { breathe?: boolean }) {
+export function Lotus({ breathe = true, progressOverride }: { breathe?: boolean; progressOverride?: number }) {
   const group = useRef<Group>(null);
   const coreLight = useRef<PointLight>(null);
   const petals = useRef<PetalRef[]>([]);
@@ -155,7 +155,7 @@ export function Lotus({ breathe = true }: { breathe?: boolean }) {
   );
 
   useFrame((state) => {
-    const { progress } = useBloom.getState();
+    const progress = progressOverride ?? useBloom.getState().progress;
     const t = state.clock.elapsedTime;
 
     for (const p of petals.current) {
@@ -213,7 +213,7 @@ export function Lotus({ breathe = true }: { breathe?: boolean }) {
         <sphereGeometry args={[0.1, 24, 16]} />
         <meshBasicMaterial color="#ffe2b8" toneMapped={false} />
       </mesh>
-      <HeartHalo />
+      <HeartHalo progressOverride={progressOverride} />
     </group>
   );
 }

@@ -14,7 +14,7 @@ export function LotusLab() {
   return (
     <main className="room" style={{ position: "relative", height: "100dvh" }}>
       <div style={{ position: "absolute", inset: 0 }} data-lab-framing="close">
-        <HeroScene reducedMotion lab />
+        <HeroScene reducedMotion variant="lab" />
       </div>
     </main>
   );

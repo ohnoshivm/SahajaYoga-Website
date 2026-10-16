@@ -20,8 +20,7 @@ export type BloomState = {
   setAgitation: (agitation: number) => void;
 };
 
-export const HOLD_SECONDS = 4;
-export const RELEASE_SPEED = 1.5;
+export { HOLD_SECONDS, RELEASE_SPEED } from "./bloomStep";
 const STORAGE_KEY = "sy.bloomed";
 
 export const useBloom = create<BloomState>((set, get) => ({
