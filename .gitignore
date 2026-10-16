@@ -21,3 +21,4 @@ next-env.d.ts
 # design: exports and the pending portrait crop stay local
 design/private/
 design/exports/
+public/private/
