@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Chakra } from '../chakra/chakras'
 import { DAILY, GUIDES, PREPARE, type Affirmation, type HandPoint, type Remedy, type Side } from '../chakra/guides'
-import { lapBell, roundBell } from '../audio/bell'
 import { formatTime } from '../engine/session'
 
 type Tab = 'understand' | 'words' | 'clear' | 'affirm' | 'feel'
@@ -14,6 +13,12 @@ const TABS: { id: Tab; label: string }[] = [
 ]
 
 const SIDE_LABEL: Record<Side, string> = { left: 'Left', right: 'Right', centre: 'Centre', all: 'All' }
+
+const AFFIRM_SIDES: { side: Side; title: string; form: string }[] = [
+  { side: 'centre', title: 'Centre', form: 'Please make me…' },
+  { side: 'left', title: 'Left side', form: 'By Your grace, I am…' },
+  { side: 'right', title: 'Right side', form: 'Verily You are…' },
+]
 
 const shield = {
   onPointerDown: (e: React.SyntheticEvent) => e.stopPropagation(),
@@ -142,8 +147,17 @@ export function GuidePanel({ chakra, onClose }: { chakra: Chakra; onClose: () =>
 
         {tab === 'affirm' && (
           <div className="g-affirms" key="a">
-            {guide.affirmations.map((a, i) => <Affirm key={i} a={a} />)}
-            <p className="g-text">Say it from the heart, aloud or silently, with your attention on the chakra.</p>
+            <p className="g-text">Begin with “Mother”, “Kundalini” or “Shri Mataji”. Say it from the heart, aloud or silently, with your attention on the chakra.</p>
+            {AFFIRM_SIDES.map(({ side, title, form }) => {
+              const list = guide.affirmations.filter((a) => a.side === side)
+              if (!list.length) return null
+              return (
+                <section key={side} className="g-affirm-group">
+                  <p className="g-label g-label-gap">{title} <span className="g-form">{form}</span></p>
+                  {list.map((a) => <Affirm key={a.text} a={a} />)}
+                </section>
+              )
+            })}
           </div>
         )}
 
@@ -180,16 +194,12 @@ function RemedyCard({ remedy, index, compact }: { remedy: Remedy; index?: number
     const id = setInterval(() => {
       const ms = Math.max(0, endsAt.current - Date.now())
       setLeft(ms)
-      if (ms === 0) {
-        setRunning(false)
-        roundBell()
-      }
+      if (ms === 0) setRunning(false)
     }, 250)
     return () => clearInterval(id)
   }, [running])
 
   const start = () => {
-    lapBell()
     endsAt.current = Date.now() + (left && left > 0 ? left : total)
     setLeft(endsAt.current - Date.now())
     setRunning(true)
@@ -251,12 +261,10 @@ function Affirm({ a }: { a: Affirmation }) {
     if (done) return
     const next = count + 1
     setCount(next)
-    if (next === a.times) roundBell()
-    else lapBell()
   }
   return (
     <section className="g-affirm">
-      <p className="g-label">{a.position}</p>
+      {a.position && <p className="g-label">{a.position}</p>}
       <blockquote className="g-quote">“{a.text}”</blockquote>
       <div className="g-dots" aria-label={`${count} of ${a.times}`}>
         {Array.from({ length: a.times }, (_, i) => <i key={i} className={i < count ? 'is-on' : ''} />)}
@@ -266,7 +274,7 @@ function Affirm({ a }: { a: Affirmation }) {
         {count > 0 && <button className="g-btn g-btn-quiet" onClick={() => setCount(0)}>Again</button>}
       </div>
       {a.note && <p className="g-small">{a.note}</p>}
-      {a.verify && <p className="g-verify">Traditional wording, to confirm with your collective.</p>}
+      <p className="g-source">{a.source}</p>
     </section>
   )
 }

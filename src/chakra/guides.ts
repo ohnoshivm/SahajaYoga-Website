@@ -27,7 +27,20 @@ export type HandPoint = 'heel' | 'thumb' | 'index' | 'middle' | 'ring' | 'little
 
 export type Quote = { text: string; source: string }
 
-export type Affirmation = { text: string; position: string; times: number; note?: string; verify?: boolean }
+/**
+ * Sourced affirmations (research/chakra-affirmations.md). Centre asks "please make me…",
+ * left affirms "by Your grace, I am…", right affirms "verily You are…".
+ */
+export type Affirmation = {
+  text: string
+  side: Side
+  /** Default count: the chakra's petals, as in the guided self-realization. */
+  times: number
+  /** Hand position, only where the source gives one. */
+  position?: string
+  source: string
+  note?: string
+}
 
 export type Guide = {
   meaning?: string
@@ -48,6 +61,14 @@ export type Guide = {
 
 const COURSE = 'Shri Mataji, quoted in the Sahaja Yoga 21-day course'
 const FOUNDATION = 'Shri Mataji, shrimataji.org'
+
+// Affirmation sources: three collective lists that agree almost word for word.
+const AUS = 'Sahaja Yoga Australia, From Mantras to Silence'
+const LISTS = 'Sahaja Yoga Australia · divinesahajyog.com · tnmeditation.org'
+const TN = 'tnmeditation.org'
+const DSY = 'divinesahajyog.com'
+const SELF = 'Shri Mataji’s guided self-realization'
+const US = 'Sahaja Yoga USA guided meditation'
 
 /** Before any meditation, for every chakra. */
 export const PREPARE: Remedy[] = [
@@ -183,13 +204,11 @@ export const GUIDES: Record<string, Guide> = {
       },
     ],
     affirmations: [
-      {
-        text: 'Mother, You are the innocence within me.',
-        position: 'Right hand on the base of the spine, or palms down on the earth',
-        times: 4,
-        note: 'Four, for the four petals.',
-        verify: true,
-      },
+      { side: 'centre', text: 'Mother, please make me innocent and wise.', times: 4, source: TN },
+      { side: 'centre', text: 'Mother, please make me the innocence.', times: 4, source: AUS },
+      { side: 'centre', text: 'Mother, the Kundalini is truly the Mother in me.', times: 4, source: TN },
+      { side: 'left', text: 'Shri Mataji, by Your grace, I am the powerful innocence of a child.', times: 4, source: LISTS },
+      { side: 'right', text: 'Shri Mataji, verily You are the killer of devils.', times: 4, source: LISTS },
     ],
     feel: {
       point: 'heel',
@@ -301,17 +320,23 @@ export const GUIDES: Record<string, Guide> = {
     ],
     affirmations: [
       {
-        text: 'Let me experience the state of meditation.',
-        position: 'Right palm on the crown, rotating clockwise',
-        times: 7,
-      },
-      {
+        side: 'centre',
         text: 'Mother, please give me my self-realization.',
         position: 'Right palm on the fontanel, pressing the scalp, rotating clockwise',
         times: 7,
+        source: SELF,
         note: 'The last step of the self-realization exercise.',
-        verify: true,
       },
+      { side: 'centre', text: 'Let me experience the state of meditation.', position: 'Right palm on the crown, rotating clockwise', times: 7, source: US },
+      { side: 'centre', text: 'Mother, please establish my Self-realisation and my connection with the Divine.', times: 7, source: LISTS },
+      { side: 'centre', text: 'Mother, please make me fully recognise the Divine.', times: 7, source: AUS },
+      { side: 'centre', text: 'Mother, thank You for my Self-realisation.', times: 7, source: AUS },
+      { side: 'left', text: 'Shri Mataji, by Your grace, I am protected from all the challenges to my ascent.', times: 7, source: LISTS },
+      { side: 'left', text: 'Shri Mataji, by Your grace, I am a realised soul.', times: 7, source: AUS },
+      { side: 'left', text: 'Shri Mataji, by Your grace, I am fortunate to be under the protection of the Divine Mother.', times: 7, source: DSY },
+      { side: 'right', text: 'Shri Mataji, verily You are the victory over all the challenges to my ascent.', times: 7, source: LISTS },
+      { side: 'right', text: 'Shri Mataji, verily You are the one who removes all my doubts.', times: 7, source: AUS },
+      { side: 'right', text: 'Shri Mataji, verily You are the Holy Spirit.', times: 7, source: `${DSY} · ${TN}` },
     ],
     feel: {
       point: 'centre',

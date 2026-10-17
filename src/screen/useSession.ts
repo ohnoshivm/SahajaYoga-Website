@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from 'react'
 import { createSession, elapsed, progress, sessionReducer, type SessionState } from '../engine/session'
 
-const KEY = (slug: string) => `sy.session.${slug}`
+export const KEY = (key: string) => `sy.session.${key}`
 const HISTORY = 'sy.history'
 
 export type SavedSession = {
@@ -13,9 +13,9 @@ export type SavedSession = {
   splits: number[]
 }
 
-function load(slug: string): SessionState {
+function load([slug, key]: [string, string]): SessionState {
   try {
-    const raw = localStorage.getItem(KEY(slug))
+    const raw = localStorage.getItem(KEY(key))
     if (raw) {
       const s = JSON.parse(raw) as SessionState
       const valid =
@@ -53,16 +53,16 @@ export function saveToHistory(s: SessionState) {
   }
 }
 
-export function useSession(slug: string) {
-  const [state, dispatch] = useReducer(sessionReducer, slug, load)
+export function useSession(slug: string, key = slug) {
+  const [state, dispatch] = useReducer(sessionReducer, [slug, key] as [string, string], load)
 
   // Save a paused snapshot with the time banked: performance.now() restarts on reload,
   // so a stored runStart would be meaningless and the clock would fall behind the splits.
   useEffect(() => {
     const save = () => {
       try {
-        if (state.ended) localStorage.removeItem(KEY(slug))
-        else localStorage.setItem(KEY(slug), JSON.stringify({ ...state, banked: elapsed(state, performance.now()), runStart: null }))
+        if (state.ended) localStorage.removeItem(KEY(key))
+        else localStorage.setItem(KEY(key), JSON.stringify({ ...state, banked: elapsed(state, performance.now()), runStart: null }))
       } catch {
         /* storage unavailable */
       }
@@ -78,7 +78,7 @@ export function useSession(slug: string) {
       removeEventListener('pagehide', save)
       document.removeEventListener('visibilitychange', onHide)
     }
-  }, [state, slug])
+  }, [state, key])
 
   return [state, dispatch] as const
 }

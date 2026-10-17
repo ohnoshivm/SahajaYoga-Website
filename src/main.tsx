@@ -3,11 +3,16 @@ import { createRoot } from 'react-dom/client'
 import { CHAKRAS, MOOLADHARA } from './chakra/chakras'
 import { MeditationScreen } from './screen/MeditationScreen'
 import { usePath } from './router'
+import { SadhanaPage } from './sadhana/SadhanaPage'
 import './styles.css'
 
 function App() {
-  const path = usePath()
-  const chakra = CHAKRAS[path.replace(/^\/+|\/+$/g, '')] ?? MOOLADHARA
+  const slug = usePath().replace(/^\/+|\/+$/g, '')
+  return slug === 'sadhana' ? <SadhanaPage /> : <ChakraApp slug={slug} />
+}
+
+function ChakraApp({ slug }: { slug: string }) {
+  const chakra = CHAKRAS[slug] ?? MOOLADHARA
 
   useEffect(() => {
     document.title = `${chakra.name} · SAHAJA YOGA`

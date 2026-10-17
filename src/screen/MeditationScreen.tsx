@@ -1,20 +1,17 @@
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
-import { Environment, Lightformer } from '@react-three/drei'
-import * as THREE from 'three'
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import type { Chakra } from '../chakra/chakras'
-import { ChakraForm } from '../chakra/ChakraForm'
+import { ChakraStage } from '../chakra/ChakraStage'
 import { ChakraSwitch } from './ChakraSwitch'
 import { GuidePanel } from './GuidePanel'
 import { formatTime, lastSplit, LAPS_PER_ROUND, progress } from '../engine/session'
 import { saveToHistory, useClock, useSession } from './useSession'
 import { RagaControl, useRecordingChoice } from './RagaControl'
-import { lapBell, roundBell } from '../audio/bell'
+import { lapBell, roundBell, tuneBells } from '../audio/bell'
+import { navigate } from '../router'
 
 const HOLD_MS = 550
-const FORM_SIZE = 4.5 // world units across the petals
 
-function useReducedMotion() {
+export function useReducedMotion() {
   const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches)
   useEffect(() => {
     const m = matchMedia('(prefers-reduced-motion: reduce)')
@@ -33,25 +30,23 @@ function vibrate(p: number | number[]) {
   }
 }
 
-/** Keeps the form at ~60% of the height on wide screens and ~82% of the width on phones. */
-function CameraRig() {
-  const { camera, size } = useThree()
-  useEffect(() => {
-    const cam = camera as THREE.PerspectiveCamera
-    const aspect = size.width / size.height
-    const tan = Math.tan(THREE.MathUtils.degToRad(cam.fov / 2))
-    const byHeight = FORM_SIZE / 0.6 / (2 * tan)
-    const byWidth = FORM_SIZE / (0.9 * aspect) / (2 * tan)
-    cam.position.set(0, 0, Math.max(byHeight, byWidth))
-    cam.updateProjectionMatrix()
-  }, [camera, size])
-  return null
-}
-
 type Ripple = { id: number; x: number; y: number }
 
-export function MeditationScreen({ chakra }: { chakra: Chakra }) {
-  const [state, dispatch] = useSession(chakra.slug)
+/** The mantra screen running as one step of a Sadhana sitting. */
+export type Embedded = {
+  /** Storage key, separate from the standalone screen's session. */
+  sessionKey: string
+  /** Replaces the wordmark, chakra switch and guide button. */
+  headerLeft: ReactNode
+  /** Rounds to complete before handing back to the sitting. */
+  rounds: number
+  onDone: () => void
+  /** 0–1 toward the rounds, for the sitting's rail. */
+  onProgress?: (fraction: number) => void
+}
+
+export function MeditationScreen({ chakra, embedded }: { chakra: Chakra; embedded?: Embedded }) {
+  const [state, dispatch] = useSession(chakra.slug, embedded?.sessionKey)
   const time = useClock(state)
   const reduced = useReducedMotion()
 
@@ -70,6 +65,8 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
   const paused = started && !running && !state.ended
 
   // ── Raga ──────────────────────────────────────────────
+  // The lap and round bells sound in the raga's own key.
+  useEffect(() => tuneBells(chakra.raga.sa), [chakra.raga.sa])
   const [recording, chooseRecording] = useRecordingChoice(chakra.slug, chakra.raga)
   const [guideOpen, setGuideOpen] = useState(false)
 
@@ -145,6 +142,25 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
     dispatch({ type: 'end', now: performance.now() })
   }, [started, dispatch])
 
+  // In a sitting: hand back once the rounds are done, or when the step is ended early.
+  const onDone = useRef(embedded?.onDone)
+  onDone.current = embedded?.onDone
+  const target = embedded?.rounds ?? 0
+  useEffect(() => {
+    if (!target || done < target || state.ended) return
+    const id = window.setTimeout(() => dispatch({ type: 'end', now: performance.now() }), 1800)
+    return () => clearTimeout(id)
+  }, [target, done, state.ended, dispatch])
+  const onProgress = useRef(embedded?.onProgress)
+  onProgress.current = embedded?.onProgress
+  useEffect(() => {
+    if (target) onProgress.current?.(Math.min(1, (done + (lap % LAPS_PER_ROUND) / LAPS_PER_ROUND) / target))
+  }, [target, done, lap])
+  useEffect(() => {
+    if (embedded && state.ended) onDone.current?.()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.ended])
+
   useEffect(() => {
     if (state.ended) saveToHistory(state)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -192,12 +208,12 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
       } else if (e.key === 'Backspace' || e.key.toLowerCase() === 'z') undo()
       else if (e.key.toLowerCase() === 'p') togglePause()
       else if (e.key.toLowerCase() === 'b') toggleBell()
-      else if (e.key.toLowerCase() === 'g') setGuideOpen((o) => !o)
+      else if (e.key.toLowerCase() === 'g' && !embedded) setGuideOpen((o) => !o)
       else if (e.key === 'Escape') setGuideOpen(false)
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
-  }, [tap, nextRound, undo, togglePause, toggleBell])
+  }, [tap, nextRound, undo, togglePause, toggleBell, embedded])
 
   const shield = { onPointerDown: (e: React.SyntheticEvent) => e.stopPropagation(), onPointerUp: (e: React.SyntheticEvent) => e.stopPropagation() }
 
@@ -228,26 +244,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
 
       <div className="med-shadow" aria-hidden="true" />
       <div className="med-stage" aria-hidden="true">
-        <Canvas
-          dpr={[1, 2]}
-          camera={{ position: [0, 0, 20], fov: 26 }}
-          gl={{ antialias: true, alpha: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.05 }}
-        >
-          <CameraRig />
-          <ambientLight intensity={0.35} />
-          <directionalLight position={[-3, 4, 6]} intensity={2.1} color={chakra.theme.light.key} />
-          <directionalLight position={[4, -1, 3]} intensity={0.6} color={chakra.theme.light.fill} />
-          <Suspense fallback={null}>
-            <Environment resolution={256}>
-              <Lightformer form="rect" intensity={2.6} position={[-2, 5, 5]} scale={[10, 2.5, 1]} />
-              <Lightformer form="rect" intensity={1.4} position={[3, 2, 6]} scale={[2, 6, 1]} rotation={[0, -0.4, 0]} />
-              <Lightformer form="circle" intensity={1.6} position={[-6, 0, 4]} scale={4} color={chakra.theme.light.key} />
-              <Lightformer form="rect" intensity={1.1} position={[6, -3, 4]} scale={[3, 8, 1]} color={chakra.theme.light.rim} />
-              <Lightformer form="ring" intensity={0.8} position={[0, 0, -6]} scale={10} color={chakra.theme.light.fill} />
-            </Environment>
-          </Suspense>
-          <ChakraForm slug={chakra.slug} pulse={pulse} bloom={bloom} pointer={pointer} still={reduced} />
-        </Canvas>
+        <ChakraStage chakra={chakra} pulse={pulse} bloom={bloom} pointer={pointer} still={reduced} />
       </div>
 
       <div className="med-ripples" aria-hidden="true">
@@ -258,15 +255,20 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
 
       <header className="med-top" {...shield}>
         <div className="med-left">
-          <a className="med-mark" href="/" aria-label="SAHAJA YOGA, home">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2.2 2.5 3.3 5 3.3 7.6 0 2.7-1.4 4.9-3.3 6.4-1.9-1.5-3.3-3.7-3.3-6.4C8.7 8 9.8 5.5 12 3Zm-8.5 6.2c2.9.3 5.1 1.6 6.6 3.8.7 1 1.1 2.1 1.3 3.2-3.9-.2-7-3-7.9-7Zm17 0c-.9 4-4 6.8-7.9 7 .2-1.1.6-2.2 1.3-3.2 1.5-2.2 3.7-3.5 6.6-3.8ZM5 18.5h14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          <span>SAHAJA YOGA</span>
-        </a>
-          <ChakraSwitch current={chakra} />
-          <button className={`guide-btn ${guideOpen ? 'is-on' : ''}`} onClick={() => setGuideOpen((o) => !o)} aria-expanded={guideOpen} aria-label={`${chakra.name} guide`}>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7.5 4.5 4.5 4.8v12.6c3-.3 5.5.2 7.5 1.7 2-1.5 4.5-2 7.5-1.7V4.8c-3-.3-5.5.2-7.5 1.7Zm0 0v12.6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /></svg>
-            <span>Guide</span>
-          </button>
+          {embedded ? embedded.headerLeft : (
+            <>
+              <a className="med-mark" href="/" aria-label="SAHAJA YOGA, home">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2.2 2.5 3.3 5 3.3 7.6 0 2.7-1.4 4.9-3.3 6.4-1.9-1.5-3.3-3.7-3.3-6.4C8.7 8 9.8 5.5 12 3Zm-8.5 6.2c2.9.3 5.1 1.6 6.6 3.8.7 1 1.1 2.1 1.3 3.2-3.9-.2-7-3-7.9-7Zm17 0c-.9 4-4 6.8-7.9 7 .2-1.1.6-2.2 1.3-3.2 1.5-2.2 3.7-3.5 6.6-3.8ZM5 18.5h14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                <span>SAHAJA YOGA</span>
+              </a>
+              <ChakraSwitch current={chakra} />
+              <button className={`guide-btn ${guideOpen ? 'is-on' : ''}`} onClick={() => setGuideOpen((o) => !o)} aria-expanded={guideOpen} aria-label={`${chakra.name} guide`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7.5 4.5 4.5 4.8v12.6c3-.3 5.5.2 7.5 1.7 2-1.5 4.5-2 7.5-1.7V4.8c-3-.3-5.5.2-7.5 1.7Zm0 0v12.6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /></svg>
+                <span>Guide</span>
+              </button>
+              <a className="sadhana-link" href="/sadhana" onClick={(e) => { e.preventDefault(); navigate('/sadhana') }}>Sadhana</a>
+            </>
+          )}
         </div>
 
         <div className="med-actions">
@@ -320,7 +322,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
         <button type="button" className="stat stat-round" aria-label="Next round" onClick={nextRound} {...shield}>
           <span className="label">Round</span>
           <span className="mid"><span className="lap-mask"><span className="mid-num" key={round}>{String(round).padStart(2, '0')}</span></span></span>
-          <span className="note">{done === 0 ? 'Ten laps make a round' : `${done} complete`}</span>
+          <span className="note">{target ? `${Math.min(done, target)} of ${target} ${target === 1 ? 'round' : 'rounds'}` : done === 0 ? 'Ten laps make a round' : `${done} complete`}</span>
         </button>
         <div className="stat stat-time">
           <span className="label">Time</span>
@@ -329,7 +331,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
         </div>
       </footer>
 
-      {state.ended && (
+      {state.ended && !embedded && (
         <section className="summary" role="dialog" aria-modal="true" aria-label="Session complete" {...shield}>
           <header className="summary-top">
             <span className="med-mark-text">SAHAJA YOGA</span>
