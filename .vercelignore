@@ -1,0 +1,5 @@
+research/
+assets-pending/
+dist/
+node_modules/
+.env*

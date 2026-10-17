@@ -294,3 +294,11 @@ button.stat-round:focus-visible { outline: 2px solid var(--ink); outline-offset:
 .summary-credit { margin: 14px 0 0; font-size: 12px; font-weight: 500; line-height: 1.5; max-width: 72ch; }
 .summary-credit a { color: inherit; text-underline-offset: 3px; }
 .summary-credit a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* The four key hints only fit when the band has room beside the round/time stats. */
+@media (max-width: 1240px) {
+  .med-idle ul { flex-wrap: wrap; max-width: 300px; margin: 0 auto; row-gap: 8px; }
+}
+@media (max-width: 1040px) {
+  .med-idle ul { display: none; }
+}
