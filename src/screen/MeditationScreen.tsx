@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import type { Chakra } from '../chakra/chakras'
 import { ChakraForm } from '../chakra/ChakraForm'
 import { ChakraSwitch } from './ChakraSwitch'
+import { GuidePanel } from './GuidePanel'
 import { formatTime, lastSplit, LAPS_PER_ROUND, progress } from '../engine/session'
 import { saveToHistory, useClock, useSession } from './useSession'
 import { RagaControl, useRecordingChoice } from './RagaControl'
@@ -70,6 +71,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
 
   // ── Raga ──────────────────────────────────────────────
   const [recording, chooseRecording] = useRecordingChoice(chakra.slug, chakra.raga)
+  const [guideOpen, setGuideOpen] = useState(false)
 
   // ── Counting ──────────────────────────────────────────
   const say = useCallback((msg: string, ms = 1800) => {
@@ -190,6 +192,8 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
       } else if (e.key === 'Backspace' || e.key.toLowerCase() === 'z') undo()
       else if (e.key.toLowerCase() === 'p') togglePause()
       else if (e.key.toLowerCase() === 'b') toggleBell()
+      else if (e.key.toLowerCase() === 'g') setGuideOpen((o) => !o)
+      else if (e.key === 'Escape') setGuideOpen(false)
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
@@ -204,7 +208,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
     '--glow': chakra.theme.glow,
   } as React.CSSProperties
 
-  const roundTime = started ? time - lastSplit(prog) : 0
+  const roundTime = started ? Math.max(0, time - lastSplit(prog)) : 0
 
   return (
     <main
@@ -259,6 +263,10 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
           <span>SAHAJA YOGA</span>
         </a>
           <ChakraSwitch current={chakra} />
+          <button className={`guide-btn ${guideOpen ? 'is-on' : ''}`} onClick={() => setGuideOpen((o) => !o)} aria-expanded={guideOpen} aria-label={`${chakra.name} guide`}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7.5 4.5 4.5 4.8v12.6c3-.3 5.5.2 7.5 1.7 2-1.5 4.5-2 7.5-1.7V4.8c-3-.3-5.5.2-7.5 1.7Zm0 0v12.6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" /></svg>
+            <span>Guide</span>
+          </button>
         </div>
 
         <div className="med-actions">
@@ -284,6 +292,8 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
         </div>
       </header>
 
+      {guideOpen && <GuidePanel chakra={chakra} onClose={() => setGuideOpen(false)} />}
+
       <p className="med-caption" role="status" aria-live="polite">{caption ?? (paused ? 'Paused · tap to continue' : '')}</p>
 
       <div className="med-idle" aria-hidden={started}>
@@ -293,6 +303,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
           <li><kbd>Hold</kbd> undo</li>
           <li><kbd>P</kbd> pause</li>
           <li><kbd>B</kbd> bell</li>
+          <li><kbd>G</kbd> guide</li>
           <li><kbd>Enter</kbd> next round</li>
         </ul>
       </div>
