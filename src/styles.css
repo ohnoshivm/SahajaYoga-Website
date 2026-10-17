@@ -506,3 +506,49 @@ button.stat-round:focus-visible { outline: 2px solid var(--ink); outline-offset:
   }
   .g-quote { font-size: 27px; }
 }
+
+/* Guide v2: deeper teaching */
+.guide { width: min(460px, calc(100vw - 2 * var(--gx))); }
+.guide-tabs button { font-size: 12.5px; padding: 0 2px; }
+.g-small { margin: 4px 0 0; font-size: 13px; line-height: 1.5; color: color-mix(in srgb, var(--field) 82%, var(--ink)); }
+.g-petals {
+  display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center;
+  margin: 18px 0 4px; padding: 16px 18px; border-radius: 20px; background: color-mix(in srgb, var(--field) 8%, transparent);
+}
+.g-petals-n { font-family: var(--display); font-weight: 800; font-size: 56px; line-height: 0.85; letter-spacing: -0.06em; }
+.g-petals .g-chips { margin: 0; }
+.g-petals .g-chips li { background: transparent !important; color: inherit !important; border-color: var(--line) !important; }
+.g-qualities { margin: 0; }
+.g-qualities div { padding: 11px 0; border-top: 1px solid var(--line); }
+.g-qualities dt { font-family: var(--display); font-weight: 800; font-size: 16px; letter-spacing: -0.02em; margin-bottom: 3px; }
+.g-qualities dd { margin: 0; font-size: 13.5px; line-height: 1.5; color: color-mix(in srgb, var(--field) 85%, var(--ink)); }
+.g-sides { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.g-side { padding: 12px; border-radius: 16px; border: 1px solid var(--line); }
+.g-side.is-centre { background: var(--field); color: var(--ink); border-color: var(--field); }
+.g-side h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 800; font-size: 14px; letter-spacing: -0.01em; }
+.g-side p { margin: 0; font-size: 12.5px; line-height: 1.45; }
+.g-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.g-two .g-list { padding-left: 16px; font-size: 13.5px; line-height: 1.55; }
+.g-list-grow { list-style: none; padding: 0; }
+.g-list-grow li { padding: 6px 0 6px 22px; position: relative; border-top: 1px solid var(--line); }
+.g-list-grow li::before { content: ''; position: absolute; left: 2px; top: 13px; width: 8px; height: 8px; border-radius: 50%; background: var(--field); }
+
+.g-story { padding: 18px; border-radius: 22px; background: var(--field); color: var(--ink); margin-bottom: 16px; }
+.g-story .g-label { color: color-mix(in srgb, var(--ink) 70%, var(--field)); }
+.g-story h3 { margin: 0 0 10px; font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 0.95; letter-spacing: -0.04em; }
+.g-story .g-text { color: var(--ink); }
+.g-story .g-pull { border-color: color-mix(in srgb, var(--ink) 25%, transparent); margin-bottom: 0; }
+.g-story .g-pull figcaption { color: color-mix(in srgb, var(--ink) 70%, var(--field)); }
+.g-pull { margin: 0 0 16px; padding: 4px 0 4px 16px; border-left: 2px solid var(--field); }
+.g-pull blockquote { margin: 0 0 8px; font-family: var(--serif); font-style: italic; font-size: 21px; line-height: 1.25; }
+.g-pull figcaption { font-size: 11.5px; font-weight: 500; color: var(--soft); }
+
+.g-side-tag { padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); font-size: 11px; font-weight: 600; letter-spacing: 0.04em; }
+.g-affirms .g-affirm { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--line); }
+.g-affirms .g-affirm:last-of-type { border-bottom: 0; }
+
+@media (max-width: 760px) {
+  .g-sides { grid-template-columns: 1fr; }
+  .g-two { grid-template-columns: 1fr; }
+  .g-pull blockquote { font-size: 19px; }
+}
