@@ -4,10 +4,12 @@ import { CHAKRAS, MOOLADHARA } from './chakra/chakras'
 import { MeditationScreen } from './screen/MeditationScreen'
 import { usePath } from './router'
 import { SadhanaPage } from './sadhana/SadhanaPage'
+import { HomePage } from './home/HomePage'
 import './styles.css'
 
 function App() {
   const slug = usePath().replace(/^\/+|\/+$/g, '')
+  if (slug === '') return <HomePage />
   return slug === 'sadhana' ? <SadhanaPage /> : <ChakraApp slug={slug} />
 }
 
