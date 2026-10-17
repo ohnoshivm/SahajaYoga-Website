@@ -7,7 +7,7 @@ import { Icon } from './Icon'
 import { FIELDS, stepInfo } from './library'
 import { AffirmStep } from './steps/AffirmStep'
 import { ChantStep } from './steps/ChantStep'
-import { CountStep } from './steps/CountStep'
+import { GestureStep } from './steps/GestureStep'
 import { LapsStep } from './steps/LapsStep'
 import { RemedyStep } from './steps/RemedyStep'
 import { SilenceStep } from './steps/SilenceStep'
@@ -144,7 +144,7 @@ export function Run({ state, dispatch, feeling, talk }: Props) {
   switch (step.kind) {
     case 'prepare':
     case 'close':
-      body = <CountStep kind={step.kind} {...common} />
+      body = <GestureStep kind={step.kind} {...common} />
       break
     case 'chant':
       body = <ChantStep chant={step.chant} repeats={step.repeats} mode={step.mode} {...common} />

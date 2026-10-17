@@ -437,6 +437,15 @@ button.jr-block:hover { transform: translateY(-3px); }
 .st-bar i { display: block; height: 100%; background: var(--ink); transform-origin: left; transition: transform 0.25s linear; }
 .st-remedy .st-title { font-size: clamp(34px, 5vw, 76px); }
 
+/* Opening and close: a point of light traces the gesture */
+.st-gesture { cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.gs-figure { width: min(300px, 72vw, 36vh); height: auto; color: var(--ink); overflow: visible; animation: st-in 0.7s var(--ease-out) both; }
+.gs-body { opacity: 0.26; }
+.gs-guide { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-dasharray: 1.5 6; opacity: 0.32; }
+.gs-trail { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+.gs-dot { fill: currentColor; filter: drop-shadow(0 0 6px color-mix(in srgb, var(--ink) 35%, transparent)); }
+.st-thanks { animation: st-in 0.9s var(--ease-out) both; }
+
 /* Silence: the chakra, and a timer that steps back */
 .st-silence { padding: 0; }
 .st-stage { position: absolute; inset: 0; }
@@ -453,22 +462,31 @@ button.jr-block:hover { transform: translateY(-3px); }
 .st-silence.is-quiet .st-silence-time { opacity: 0.28; }
 .st-silence.is-quiet .st-whisper { opacity: 0.4; }
 
-/* Talk */
-.st-talk { justify-content: flex-start; gap: 10px; }
-.st-talk-head { display: grid; gap: 6px; justify-items: center; }
-.st-talk-title { margin: 0; max-width: 28ch; font-family: var(--display); font-weight: 800; font-size: clamp(22px, 3vw, 40px); line-height: 1.05; letter-spacing: -0.03em; text-wrap: balance; }
-.st-byline { margin: 0; font-family: var(--serif); font-style: italic; font-size: 19px; color: var(--soft); }
-.st-begin {
-  position: absolute; z-index: 40; left: 50%; bottom: calc(var(--gy) + 28px + env(safe-area-inset-bottom)); transform: translateX(-50%);
-  min-height: 56px; padding: 0 32px; border-radius: 999px; background: var(--ink); color: var(--field); font-size: 16px; font-weight: 600;
+/* Talk: the step lays out the player's box; the preloaded player fills it exactly */
+.st-talk { justify-content: flex-start; gap: 18px; padding-bottom: calc(var(--gy) + 16px + env(safe-area-inset-bottom)); }
+.st-talk-head { display: grid; gap: 6px; justify-items: center; flex: none; }
+.st-talk-title {
+  margin: 0; max-width: 44ch; font-family: var(--display); font-weight: 800; font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1.12; letter-spacing: -0.02em; text-wrap: balance;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
 }
+.st-byline { margin: 0; font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--soft); }
+.st-talk-slot { flex: 1 1 auto; min-height: 0; width: 100%; container-type: size; display: grid; place-items: center; }
+.st-talk-box {
+  aspect-ratio: 16 / 9; width: min(100cqw, 100cqh * 16 / 9, 1180px);
+  border-radius: 16px; background: color-mix(in srgb, var(--ink) 7%, transparent);
+}
+.st-talk-foot { flex: none; min-height: 56px; display: grid; place-items: center; }
+.st-begin {
+  min-height: 56px; padding: 0 32px; border-radius: 999px; background: var(--ink); color: var(--field); font-size: 16px; font-weight: 600;
+  transition: transform 0.25s var(--ease-out), opacity 0.3s;
+}
+.st-begin:active { transform: scale(0.98); }
 .st-begin:disabled { opacity: 0.6; cursor: progress; }
-.st-talk .st-note { margin-top: auto; }
 
 .talk-frame { position: fixed; z-index: 0; left: -10000px; top: 0; width: 640px; height: 360px; opacity: 0; pointer-events: none; }
 .talk-frame.is-on {
-  z-index: 35; left: 50%; top: 50%; transform: translate(-50%, -46%);
-  width: min(1080px, 92vw, calc((100vh - 300px) * 16 / 9)); height: auto; aspect-ratio: 16 / 9;
+  z-index: 35; left: var(--talk-x, 4vw); top: var(--talk-y, 20vh); width: var(--talk-w, 92vw); height: var(--talk-h, 52vw);
   border-radius: 16px; overflow: hidden; background: #000; opacity: 1; pointer-events: auto;
   transition: opacity 0.8s var(--ease-calm) 1.8s;
 }
@@ -527,7 +545,6 @@ button.jr-block:hover { transform: translateY(-3px); }
   @keyframes sit-handoff { from { opacity: 0; transform: translateY(16px); } }
   .st { gap: 16px; padding-top: calc(var(--gy) + 84px + env(safe-area-inset-top)); }
   .st-steps { font-size: 14px; }
-  .talk-frame.is-on { width: 94vw; }
 }
 @media (hover: none) { .sit-keys { display: none; } }
 @media (max-height: 760px) {
