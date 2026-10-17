@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { RagaInfo, Recording } from '../chakra/chakras'
 import { RagaPlayer, type RagaSource } from '../audio/raga'
-import { YouTubeRagaPlayer } from '../audio/youtube'
 import { formatTime } from '../engine/session'
 
 type Player = {
-  source: RagaSource | 'youtube' | null
+  source: RagaSource | null
   detect(): Promise<unknown>
   play(): Promise<void>
   pause(): void
@@ -43,7 +42,6 @@ export function useRecordingChoice(slug: string, raga: RagaInfo) {
 type Props = { raga: RagaInfo; recording: Recording; onChoose: (id: string) => void }
 
 export function RagaControl({ raga, recording, onChoose }: Props) {
-  const ytHost = useRef<HTMLDivElement>(null)
   const players = useRef(new Map<string, Player>())
   const [playing, setPlaying] = useState(false)
   const [source, setSource] = useState<Player['source']>(null)
@@ -55,10 +53,7 @@ export function RagaControl({ raga, recording, onChoose }: Props) {
     (r: Recording): Player => {
       let p = players.current.get(r.id)
       if (!p) {
-        p =
-          r.kind === 'youtube'
-            ? new YouTubeRagaPlayer(r.videoId, () => ytHost.current)
-            : new RagaPlayer({ file: r.file, stream: r.stream, sa: raga.sa })
+        p = new RagaPlayer({ file: r.file, stream: r.stream, sa: raga.sa })
         players.current.set(r.id, p)
       }
       return p
@@ -138,8 +133,6 @@ export function RagaControl({ raga, recording, onChoose }: Props) {
         ? `${formatTime(pos.at * 1000)} / ${formatTime(pos.length * 1000)}`
         : recording.artist
 
-  const showVideo = recording.kind === 'youtube' && (playing || source === 'youtube')
-
   return (
     <div className="raga-wrap" ref={wrap}>
       <div className={`raga ${playing ? 'is-on' : ''}`}>
@@ -187,10 +180,6 @@ export function RagaControl({ raga, recording, onChoose }: Props) {
           ))}
         </div>
       )}
-
-      <div className={`raga-video ${showVideo ? 'is-on' : ''}`} aria-hidden={!showVideo}>
-        <div ref={ytHost} className="raga-video-host" />
-      </div>
     </div>
   )
 }

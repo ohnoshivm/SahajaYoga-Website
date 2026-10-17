@@ -14,22 +14,18 @@ export type Credit = { performers: string; source: string; license: string; url:
 
 export type Recording = {
   id: string
+  kind: 'file'
   /** Instrument or performer, shown in the picker. */
   label: string
   /** Short performer line for the player. */
   artist: string
   length: string
+  /** Bundled full piece, played first. */
+  file: string
+  /** The same passage on its archive, used if the bundled file is missing. */
+  stream?: { url: string; start: number; end: number }
   credit: Credit
-} & (
-  | {
-      kind: 'file'
-      /** Bundled full piece, played first. */
-      file: string
-      /** The same passage on its archive, used if the bundled file is missing. */
-      stream?: { url: string; start: number; end: number }
-    }
-  | { kind: 'youtube'; videoId: string }
-)
+}
 
 export type RagaInfo = {
   name: string
@@ -94,16 +90,16 @@ export const MOOLADHARA: Chakra = {
         },
       },
       {
-        id: 'gupta-youtube',
-        kind: 'youtube',
+        id: 'gupta',
+        kind: 'file',
         label: 'Sahaja music',
-        artist: 'Aakash Gupta · YouTube',
+        artist: 'Aakash Gupta',
         length: '4:48',
-        videoId: '1H60sWcCrNE',
+        file: '/audio/mooladhara-shyam-kalyan-gupta.mp3',
         credit: {
           performers: 'Aakash Gupta',
-          source: 'YouTube, played through the official embedded player',
-          license: 'YouTube',
+          source: 'Sahaja Yoga - Raga for Mooladhara - Shyam Kalyan',
+          license: 'Used with permission',
           url: 'https://www.youtube.com/watch?v=1H60sWcCrNE',
         },
       },

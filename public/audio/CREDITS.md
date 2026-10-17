@@ -16,5 +16,8 @@ Non-commercial use only. Keep this credit wherever the recording is used.
 - **Licence:** Creative Commons Attribution-NonCommercial 4.0 (https://creativecommons.org/licenses/by-nc/4.0/)
 - **Changes:** Joined the Shyam Kalyan performance across the tape flip: cassette 125 side B from 24:58 (after the retune that follows Raga Chandranandan) and cassette 126 side A up to 23:55 (before the next raga), with a 2 s crossfade at the join, a 2 s fade-in and 4 s fade-out, re-encoded to 128 kbps MP3.
 
-## Aakash Gupta — "Sahaja Yoga - Raga for Mooladhara - Shyam Kalyan" (4:48)
-Not stored here. It plays through YouTube's official embedded player from https://www.youtube.com/watch?v=1H60sWcCrNE, which stays visible on screen while it plays, as YouTube's terms require.
+## mooladhara-shyam-kalyan-gupta.mp3 — "Sahaja Yoga - Raga for Mooladhara - Shyam Kalyan" (4:48)
+- **Artist:** Aakash Gupta
+- **Original:** https://www.youtube.com/watch?v=1H60sWcCrNE
+- **Licence:** Used with the artist's permission (granted to the site owner, October 2026). Not covered by a Creative Commons licence; do not reuse outside this site.
+- **Changes:** Audio only, re-encoded to 160 kbps MP3.
