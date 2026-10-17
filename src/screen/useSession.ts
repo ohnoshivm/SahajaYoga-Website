@@ -22,8 +22,10 @@ function load(slug: string): SessionState {
         !!s && s.chakra === slug && !s.ended && Array.isArray(s.events) && typeof s.banked === 'number' &&
         s.events.every((e) => e && (e.kind === 'lap' || e.kind === 'round') && typeof e.at === 'number')
       if (valid) {
-        // Resume paused: never count time the page was closed.
-        return { ...s, banked: s.banked, runStart: null }
+        // Resume paused, never counting time the page was closed. Older saves could
+        // hold less banked time than their last event; never let the clock run behind it.
+        const last = s.events.length ? s.events[s.events.length - 1].at : 0
+        return { ...s, banked: Math.max(s.banked, last), runStart: null }
       }
     }
   } catch {
@@ -54,12 +56,27 @@ export function saveToHistory(s: SessionState) {
 export function useSession(slug: string) {
   const [state, dispatch] = useReducer(sessionReducer, slug, load)
 
+  // Save a paused snapshot with the time banked: performance.now() restarts on reload,
+  // so a stored runStart would be meaningless and the clock would fall behind the splits.
   useEffect(() => {
-    try {
-      if (state.ended) localStorage.removeItem(KEY(slug))
-      else localStorage.setItem(KEY(slug), JSON.stringify(state))
-    } catch {
-      /* storage unavailable */
+    const save = () => {
+      try {
+        if (state.ended) localStorage.removeItem(KEY(slug))
+        else localStorage.setItem(KEY(slug), JSON.stringify({ ...state, banked: elapsed(state, performance.now()), runStart: null }))
+      } catch {
+        /* storage unavailable */
+      }
+    }
+    save()
+    // Keep the banked time fresh while running, and catch the moment the page is left.
+    const id = state.runStart !== null ? setInterval(save, 5000) : undefined
+    const onHide = () => document.visibilityState === 'hidden' && save()
+    addEventListener('pagehide', save)
+    document.addEventListener('visibilitychange', onHide)
+    return () => {
+      if (id) clearInterval(id)
+      removeEventListener('pagehide', save)
+      document.removeEventListener('visibilitychange', onHide)
     }
   }, [state, slug])
 
