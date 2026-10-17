@@ -7,6 +7,7 @@ import { MooladharaForm } from '../chakra/MooladharaForm'
 import { formatTime, lastSplit, LAPS_PER_ROUND, progress } from '../engine/session'
 import { saveToHistory, useClock, useSession } from './useSession'
 import { RagaControl, useRecordingChoice } from './RagaControl'
+import { lapBell, roundBell } from '../audio/bell'
 
 const HOLD_MS = 550
 const FORM_SIZE = 4.5 // world units across the petals
@@ -75,28 +76,53 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
     window.setTimeout(() => setCaption((c) => (c === msg ? null : c)), ms)
   }, [])
 
+  const [bellOn, setBellOn] = useState(() => {
+    try {
+      return localStorage.getItem('sy.bell') !== 'off'
+    } catch {
+      return true
+    }
+  })
+  const toggleBell = useCallback(() => {
+    setBellOn((on) => {
+      try {
+        localStorage.setItem('sy.bell', on ? 'off' : 'on')
+      } catch {
+        /* storage unavailable */
+      }
+      return !on
+    })
+  }, [])
+
   const celebrate = useCallback((n: number) => {
+    if (bellOn) roundBell()
     bloom.current = 1
     setWave((w) => w + 1)
     say(`Round ${n} complete`)
     vibrate([30, 70, 30])
-  }, [say])
+  }, [say, bellOn])
 
   const tap = useCallback(() => {
     if (state.ended) return
-    dispatch({ type: 'tap', now: performance.now() })
     pulse.current = 1
     if (lap === LAPS_PER_ROUND - 1) celebrate(round)
-    else vibrate(8)
-  }, [state.ended, lap, round, dispatch, celebrate])
+    else {
+      if (bellOn) lapBell()
+      vibrate(8)
+    }
+    dispatch({ type: 'tap', now: performance.now() })
+  }, [state.ended, lap, round, dispatch, celebrate, bellOn])
 
   // Close the current round now. Nothing to close at lap 0.
   const nextRound = useCallback(() => {
     if (state.ended || lap === 0) return
-    dispatch({ type: 'next', now: performance.now() })
     if (lap < LAPS_PER_ROUND) celebrate(round)
-    else vibrate(16)
-  }, [state.ended, lap, round, dispatch, celebrate])
+    else {
+      if (bellOn) lapBell()
+      vibrate(16)
+    }
+    dispatch({ type: 'next', now: performance.now() })
+  }, [state.ended, lap, round, dispatch, celebrate, bellOn])
 
   const undo = useCallback(() => {
     const last = state.events[state.events.length - 1]
@@ -162,10 +188,11 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
         nextRound()
       } else if (e.key === 'Backspace' || e.key.toLowerCase() === 'z') undo()
       else if (e.key.toLowerCase() === 'p') togglePause()
+      else if (e.key.toLowerCase() === 'b') toggleBell()
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
-  }, [tap, nextRound, undo, togglePause])
+  }, [tap, nextRound, undo, togglePause, toggleBell])
 
   const shield = { onPointerDown: (e: React.SyntheticEvent) => e.stopPropagation(), onPointerUp: (e: React.SyntheticEvent) => e.stopPropagation() }
 
@@ -231,6 +258,18 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
         </a>
 
         <div className="med-actions">
+          <button
+            className={`bell ${bellOn ? 'is-on' : ''}`}
+            onClick={toggleBell}
+            aria-pressed={bellOn}
+            aria-label={bellOn ? 'Lap bell on' : 'Lap bell off'}
+            title={bellOn ? 'Lap bell on (B)' : 'Lap bell off (B)'}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.5 1.5h-15L6 16.5Z M10 19.5a2 2 0 0 0 4 0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              {!bellOn && <path d="M4 4l16 16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />}
+            </svg>
+          </button>
           <RagaControl raga={chakra.raga} recording={recording} onChoose={chooseRecording} />
           {started && !state.ended && (
             <>
@@ -249,6 +288,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
           <li><kbd>Space</kbd> count</li>
           <li><kbd>Hold</kbd> undo</li>
           <li><kbd>P</kbd> pause</li>
+          <li><kbd>B</kbd> bell</li>
           <li><kbd>Enter</kbd> next round</li>
         </ul>
       </div>
