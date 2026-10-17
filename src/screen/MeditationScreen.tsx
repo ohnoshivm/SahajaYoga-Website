@@ -4,9 +4,9 @@ import { Environment, Lightformer } from '@react-three/drei'
 import * as THREE from 'three'
 import type { Chakra } from '../chakra/chakras'
 import { MooladharaForm } from '../chakra/MooladharaForm'
-import { RagaPlayer, type RagaSource } from '../audio/raga'
 import { formatTime, lastSplit, LAPS_PER_ROUND, progress } from '../engine/session'
 import { saveToHistory, useClock, useSession } from './useSession'
+import { RagaControl, useRecordingChoice } from './RagaControl'
 
 const HOLD_MS = 550
 const FORM_SIZE = 4.5 // world units across the petals
@@ -67,38 +67,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
   const paused = started && !running && !state.ended
 
   // ── Raga ──────────────────────────────────────────────
-  const player = useMemo(
-    () => new RagaPlayer({ file: chakra.raga.file, stream: chakra.raga.stream, sa: chakra.raga.sa }),
-    [chakra],
-  )
-  const [playing, setPlaying] = useState(false)
-  const [source, setSource] = useState<RagaSource | null>(null)
-  const [ragaPos, setRagaPos] = useState<{ at: number; length: number } | null>(null)
-  useEffect(() => {
-    player.detect().then(setSource)
-    return () => player.dispose()
-  }, [player])
-  useEffect(() => {
-    if (!playing) return
-    const id = setInterval(() => setRagaPos(player.position()), 1000)
-    return () => clearInterval(id)
-  }, [playing, player])
-  const toggleRaga = useCallback(async () => {
-    if (playing) {
-      player.pause()
-      setPlaying(false)
-    } else {
-      await player.play()
-      setSource(player.source)
-      setPlaying(true)
-    }
-  }, [playing, player])
-  const ragaLine =
-    source === 'drone'
-      ? 'Tanpura drone'
-      : playing && ragaPos
-        ? `${formatTime(ragaPos.at * 1000)} / ${formatTime(ragaPos.length * 1000)}`
-        : chakra.raga.artist
+  const [recording, chooseRecording] = useRecordingChoice(chakra.slug, chakra.raga)
 
   // ── Counting ──────────────────────────────────────────
   const say = useCallback((msg: string, ms = 1800) => {
@@ -262,19 +231,7 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
         </a>
 
         <div className="med-actions">
-          <button className={`raga ${playing ? 'is-on' : ''}`} onClick={toggleRaga} aria-pressed={playing} aria-label={`${playing ? 'Pause' : 'Play'} ${chakra.raga.name}`}>
-            <span className="raga-icon" aria-hidden="true">
-              {playing ? (
-                <span className="eq"><i /><i /><i /></span>
-              ) : (
-                <svg viewBox="0 0 16 16"><path d="M5.2 3.3v9.4a.6.6 0 0 0 .92.5l7.3-4.7a.6.6 0 0 0 0-1L6.12 2.8a.6.6 0 0 0-.92.5Z" /></svg>
-              )}
-            </span>
-            <span className="raga-text">
-              <span className="raga-name"><span className="raga-word">Raga </span>{chakra.raga.name.replace(/^Raga /, '')}</span>
-              <small>{ragaLine}</small>
-            </span>
-          </button>
+          <RagaControl raga={chakra.raga} recording={recording} onChoose={chooseRecording} />
           {started && !state.ended && (
             <>
               <button className="ghost" onClick={togglePause}>{running ? 'Pause' : 'Resume'}</button>
@@ -344,8 +301,8 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
             <p>Saved to your practice on this device.</p>
           </div>
           <p className="summary-credit">
-            {chakra.raga.name} · {chakra.raga.credit.performers} · {chakra.raga.credit.source} ·{' '}
-            <a href={chakra.raga.credit.url} target="_blank" rel="noopener noreferrer">{chakra.raga.credit.license}</a>
+            {chakra.raga.name} · {recording.credit.performers} · {recording.credit.source} ·{' '}
+            <a href={recording.credit.url} target="_blank" rel="noopener noreferrer">{recording.credit.license}</a>
           </p>
         </section>
       )}

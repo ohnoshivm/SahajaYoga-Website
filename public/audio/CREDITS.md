@@ -8,3 +8,13 @@
 - **Changes:** Extracted the Shyam Kalyan performance from Side B (22:58 to the end; the first part of the side is Raga Desh), added a 2 s fade-in and 4 s fade-out, re-encoded to 160 kbps MP3. The raga was identified by its notes (tivra Ma with shuddha Ma and Ni, no komal Ni) and the change of tuning at 22:58.
 
 Non-commercial use only. Keep this credit wherever the recording is used.
+
+## mooladhara-shyam-kalyan-sitar.mp3 — Raga Shyam Kalyan, sitar (46:28)
+- **Performers:** Pandit Krishnamohan Bhatt (sitar), Pandit Nandan Mehta (tabla). Live baithak at Pandit Nandan Mehta's residence "Shivsadan", Ahmedabad, 1 June 1982.
+- **Source recording:** Saptak Archives, Ahmedabad, cassettes 125 and 126 (Saptak Baithak). Digitised by the National Cultural Audiovisual Archives (IGNCA).
+- **Archive:** https://archive.org/details/dni.ncaa.SA-125-AC and https://archive.org/details/dni.ncaa.SA-126-AC
+- **Licence:** Creative Commons Attribution-NonCommercial 4.0 (https://creativecommons.org/licenses/by-nc/4.0/)
+- **Changes:** Joined the Shyam Kalyan performance across the tape flip: cassette 125 side B from 24:58 (after the retune that follows Raga Chandranandan) and cassette 126 side A up to 23:55 (before the next raga), with a 2 s crossfade at the join, a 2 s fade-in and 4 s fade-out, re-encoded to 128 kbps MP3.
+
+## Aakash Gupta — "Sahaja Yoga - Raga for Mooladhara - Shyam Kalyan" (4:48)
+Not stored here. It plays through YouTube's official embedded player from https://www.youtube.com/watch?v=1H60sWcCrNE, which stays visible on screen while it plays, as YouTube's terms require.
