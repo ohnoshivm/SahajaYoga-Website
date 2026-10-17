@@ -8,6 +8,8 @@ export type ChakraTheme = {
   ink: string // text on the field (AA+ on field)
   inkSoft: string
   glow: string // light used for tap pulses and the round sweep
+  /** Lights for the 3D form: key, warm fill, rim. */
+  light: { key: string; fill: string; rim: string }
 }
 
 export type Credit = { performers: string; source: string; license: string; url: string }
@@ -110,7 +112,46 @@ export const MOOLADHARA: Chakra = {
     ink: '#1F0806',
     inkSoft: 'rgba(31, 8, 6, 0.62)',
     glow: '#FFE9DC',
+    light: { key: '#fff1e6', fill: '#ffb59c', rim: '#ff9f86' },
   },
 }
 
-export const CHAKRAS: Record<string, Chakra> = { mooladhara: MOOLADHARA }
+export const SAHASRARA: Chakra = {
+  slug: 'sahasrara',
+  number: 7,
+  name: 'Sahasrara',
+  quality: 'Integration',
+  element: 'All elements',
+  felt: 'Centre of the palm',
+  raga: {
+    name: 'Raga Darbari Kanada',
+    sa: 138.6,
+    recordings: [
+      {
+        id: 'gupta',
+        kind: 'file',
+        label: 'Sahaja music',
+        artist: 'Aakash Gupta',
+        length: '9:31',
+        file: '/audio/sahasrara-darbari-kanada-gupta.mp3',
+        credit: {
+          performers: 'Aakash Gupta',
+          source: 'Sahaja Yoga - Raga for Sahastrara - Darbari Kanada',
+          license: 'Used with permission',
+          url: 'https://www.youtube.com/watch?v=ARpS0cDoo2M',
+        },
+      },
+    ],
+  },
+  theme: {
+    field: '#F5F2EC',
+    ink: '#15120E',
+    inkSoft: 'rgba(21, 18, 14, 0.62)',
+    glow: '#E4D4FF',
+    light: { key: '#ffffff', fill: '#fff1de', rim: '#e3d8ff' },
+  },
+}
+
+/** In order up the spine; only the built ones are listed. */
+export const CHAKRA_LIST: Chakra[] = [MOOLADHARA, SAHASRARA]
+export const CHAKRAS: Record<string, Chakra> = Object.fromEntries(CHAKRA_LIST.map((c) => [c.slug, c]))

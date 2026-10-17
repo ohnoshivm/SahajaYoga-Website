@@ -81,12 +81,7 @@ function cup(g: THREE.BufferGeometry, lift: number, lean: number) {
   return g
 }
 
-type Props = {
-  pulse: React.MutableRefObject<number>
-  bloom: React.MutableRefObject<number>
-  pointer: React.MutableRefObject<[number, number]>
-  still: boolean
-}
+import type { FormProps as Props } from './ChakraForm'
 
 export function MooladharaForm({ pulse, bloom, pointer, still }: Props) {
   const group = useRef<THREE.Group>(null)

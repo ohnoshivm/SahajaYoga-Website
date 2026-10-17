@@ -351,3 +351,39 @@ button.stat-round:focus-visible { outline: 2px solid var(--ink); outline-offset:
 .bell:not(.is-on) { opacity: 0.7; }
 .bell:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 @media (max-width: 760px) { .bell { width: 44px; height: 44px; } }
+
+/* Chakra switcher */
+.med-left { display: flex; align-items: center; gap: clamp(8px, 1.6vw, 20px); }
+.cswitch { position: relative; }
+.cswitch-btn {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px 0 12px;
+  border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--ink) 30%, transparent);
+  font-size: 13px; font-weight: 600; transition: border-color 0.25s var(--ease-calm), background 0.25s var(--ease-calm);
+}
+.cswitch-btn:hover { border-color: var(--ink); }
+.cswitch-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.cswitch-btn svg { width: 14px; height: 14px; transition: transform 0.3s var(--ease-out); }
+.cswitch-btn[aria-expanded='true'] svg { transform: rotate(180deg); }
+.cswitch-num { font-family: var(--display); font-weight: 800; font-variant-numeric: tabular-nums; }
+.cswitch-menu {
+  position: absolute; top: calc(100% + 10px); left: 0; z-index: 20; width: min(320px, calc(100vw - 2 * var(--gx)));
+  padding: 8px; border-radius: 22px; background: var(--ink); color: var(--field);
+  box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--ink) 70%, transparent);
+  animation: menu 0.32s var(--ease-out) both; transform-origin: top left;
+}
+.cswitch-opt {
+  display: grid; grid-template-columns: 14px auto 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: center;
+  padding: 10px 12px; border-radius: 14px; color: inherit; text-decoration: none; min-height: 56px;
+  transition: background 0.2s var(--ease-calm);
+}
+.cswitch-opt:hover { background: color-mix(in srgb, var(--field) 12%, transparent); }
+.cswitch-opt.is-active { background: color-mix(in srgb, var(--field) 18%, transparent); }
+.cswitch-opt:focus-visible { outline: 2px solid currentColor; outline-offset: -4px; }
+.cswitch-dot { grid-row: 1 / span 2; width: 14px; height: 14px; border-radius: 50%; box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--field) 50%, transparent); }
+.cswitch-opt-num { grid-row: 1 / span 2; font-family: var(--display); font-weight: 800; font-size: 13px; opacity: 0.7; }
+.cswitch-opt-name { font-family: var(--display); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+.cswitch-opt-q { grid-column: 3; font-size: 12.5px; font-weight: 500; opacity: 0.85; }
+@media (max-width: 760px) {
+  .cswitch-name { display: none; }
+  .cswitch-btn { padding: 0 10px; }
+}

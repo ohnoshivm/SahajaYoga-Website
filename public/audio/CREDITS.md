@@ -21,3 +21,9 @@ Non-commercial use only. Keep this credit wherever the recording is used.
 - **Original:** https://www.youtube.com/watch?v=1H60sWcCrNE
 - **Licence:** Used with the artist's permission (granted to the site owner, October 2026). Not covered by a Creative Commons licence; do not reuse outside this site.
 - **Changes:** Audio only, re-encoded to 160 kbps MP3.
+
+## sahasrara-darbari-kanada-gupta.mp3 — "Sahaja Yoga - Raga for Sahastrara - Darbari Kanada" (9:31)
+- **Artist:** Aakash Gupta
+- **Original:** https://www.youtube.com/watch?v=ARpS0cDoo2M
+- **Licence:** Used with the artist's permission (granted to the site owner, October 2026). Not covered by a Creative Commons licence; do not reuse outside this site.
+- **Changes:** Re-encoded to 160 kbps MP3.

@@ -3,7 +3,8 @@ import { Canvas, useThree } from '@react-three/fiber'
 import { Environment, Lightformer } from '@react-three/drei'
 import * as THREE from 'three'
 import type { Chakra } from '../chakra/chakras'
-import { MooladharaForm } from '../chakra/MooladharaForm'
+import { ChakraForm } from '../chakra/ChakraForm'
+import { ChakraSwitch } from './ChakraSwitch'
 import { formatTime, lastSplit, LAPS_PER_ROUND, progress } from '../engine/session'
 import { saveToHistory, useClock, useSession } from './useSession'
 import { RagaControl, useRecordingChoice } from './RagaControl'
@@ -230,18 +231,18 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
         >
           <CameraRig />
           <ambientLight intensity={0.35} />
-          <directionalLight position={[-3, 4, 6]} intensity={2.1} color="#fff1e6" />
-          <directionalLight position={[4, -1, 3]} intensity={0.6} color="#ffb59c" />
+          <directionalLight position={[-3, 4, 6]} intensity={2.1} color={chakra.theme.light.key} />
+          <directionalLight position={[4, -1, 3]} intensity={0.6} color={chakra.theme.light.fill} />
           <Suspense fallback={null}>
             <Environment resolution={256}>
               <Lightformer form="rect" intensity={2.6} position={[-2, 5, 5]} scale={[10, 2.5, 1]} />
               <Lightformer form="rect" intensity={1.4} position={[3, 2, 6]} scale={[2, 6, 1]} rotation={[0, -0.4, 0]} />
-              <Lightformer form="circle" intensity={1.6} position={[-6, 0, 4]} scale={4} color="#ffe8da" />
-              <Lightformer form="rect" intensity={1.1} position={[6, -3, 4]} scale={[3, 8, 1]} color="#ff9f86" />
-              <Lightformer form="ring" intensity={0.8} position={[0, 0, -6]} scale={10} color="#ffd9c7" />
+              <Lightformer form="circle" intensity={1.6} position={[-6, 0, 4]} scale={4} color={chakra.theme.light.key} />
+              <Lightformer form="rect" intensity={1.1} position={[6, -3, 4]} scale={[3, 8, 1]} color={chakra.theme.light.rim} />
+              <Lightformer form="ring" intensity={0.8} position={[0, 0, -6]} scale={10} color={chakra.theme.light.fill} />
             </Environment>
           </Suspense>
-          <MooladharaForm pulse={pulse} bloom={bloom} pointer={pointer} still={reduced} />
+          <ChakraForm slug={chakra.slug} pulse={pulse} bloom={bloom} pointer={pointer} still={reduced} />
         </Canvas>
       </div>
 
@@ -252,10 +253,13 @@ export function MeditationScreen({ chakra }: { chakra: Chakra }) {
       </div>
 
       <header className="med-top" {...shield}>
-        <a className="med-mark" href="/" aria-label="SAHAJA YOGA, home">
+        <div className="med-left">
+          <a className="med-mark" href="/" aria-label="SAHAJA YOGA, home">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2.2 2.5 3.3 5 3.3 7.6 0 2.7-1.4 4.9-3.3 6.4-1.9-1.5-3.3-3.7-3.3-6.4C8.7 8 9.8 5.5 12 3Zm-8.5 6.2c2.9.3 5.1 1.6 6.6 3.8.7 1 1.1 2.1 1.3 3.2-3.9-.2-7-3-7.9-7Zm17 0c-.9 4-4 6.8-7.9 7 .2-1.1.6-2.2 1.3-3.2 1.5-2.2 3.7-3.5 6.6-3.8ZM5 18.5h14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           <span>SAHAJA YOGA</span>
         </a>
+          <ChakraSwitch current={chakra} />
+        </div>
 
         <div className="med-actions">
           <button
